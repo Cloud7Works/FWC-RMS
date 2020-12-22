@@ -1,0 +1,41 @@
+[
+    {
+        "firstName": "Ronald",
+        "lastName": "Jose",
+        "companyName": "Upwork",
+        "departmentDocumentNumber": "20201218",
+        "checkNumber": "#12345",
+        "checkAmount": 0,
+        "checkDate": "2020-12-17",
+        "transmittalNumber": 0,
+        "transmittalStatus": "string",
+        "depositNumber": "446",
+        "cashListing": "Saltwater"
+      },
+      {
+        "firstName": "string",
+        "lastName": "string",
+        "companyName": "string",
+        "departmentDocumentNumber": "string",
+        "checkNumber": "string",
+        "checkAmount": 0,
+        "checkDate": "2020-12-17",
+        "transmittalNumber": 0,
+        "transmittalStatus": "string",
+        "depositNumber": "string",
+        "cashListing": "string"
+      },
+      {
+        "firstName": "string",
+        "lastName": "string",
+        "companyName": "string",
+        "departmentDocumentNumber": "string",
+        "checkNumber": "string",
+        "checkAmount": 0,
+        "checkDate": "2020-12-17",
+        "transmittalNumber": 0,
+        "transmittalStatus": "string",
+        "depositNumber": "string",
+        "cashListing": "string"
+      }
+]

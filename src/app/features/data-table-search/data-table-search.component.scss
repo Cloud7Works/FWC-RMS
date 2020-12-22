@@ -1,0 +1,15 @@
+.full-width-table {
+  width: 100%;
+}
+table{
+  // tr:nth-child(even) {background: #286DA8 5%}
+  tr.mat-row:nth-child(odd) {background: #f4faff} 
+  td.mat-column-transmittalStatus{
+    i{
+      position: relative;
+      left: 25%;
+    }
+   
+  }
+
+}

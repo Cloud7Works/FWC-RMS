@@ -1,0 +1,72 @@
+<div class="mat-elevation-z8">
+  <table mat-table class="full-width-table" matSort aria-label="Elements">
+    
+    <!-- firstName Column -->
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+      <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+    </ng-container>
+        
+    <!-- lastName Column -->
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+      <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+    </ng-container>
+
+      <!-- departmentDocumentNumber Column -->
+    <ng-container matColumnDef="departmentDocumentNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>DDN</th>
+      <td mat-cell *matCellDef="let row">{{row.departmentDocumentNumber}}</td>
+    </ng-container>
+
+    <!-- checkAmount Column -->
+    <ng-container matColumnDef="checkAmount">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Check Details</th>
+      <td mat-cell *matCellDef="let row">{{row.checkAmount}}</td>
+    </ng-container>
+
+    <!-- checkDate Column -->
+    <ng-container matColumnDef="checkDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Check Date</th>
+      <td mat-cell *matCellDef="let row">{{row.checkDate}}</td>
+    </ng-container>
+
+    <!-- checkNumber Column -->
+    <ng-container matColumnDef="checkNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Transmission Details</th>
+      <td mat-cell *matCellDef="let row">{{row.checkNumber}}</td>
+    </ng-container>
+
+    <!-- depositNumber Column -->
+    <ng-container matColumnDef="depositNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Deposit Number</th>
+      <td mat-cell *matCellDef="let row">{{row.depositNumber}}</td>
+    </ng-container>
+
+    <!-- cashListing Column -->
+    <ng-container matColumnDef="cashListing">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Cash Listing</th>
+      <td mat-cell *matCellDef="let row">{{row.cashListing}}</td>
+    </ng-container>
+
+      <!-- transmittalStatus Column -->
+      <ng-container matColumnDef="transmittalStatus">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Issue Refund</th>
+        <td mat-cell *matCellDef="let row">
+          <span class="refund-icon" aria-hidden="true">
+            <i class="fa fa-undo"></i>      
+          </span>    
+        </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator
+      [length]="dataSource?.data?.length"
+      [pageIndex]="0"
+      [pageSize]="10"
+      [pageSizeOptions]="[10,20,30]">
+  </mat-paginator>
+</div>

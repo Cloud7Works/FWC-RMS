@@ -1,0 +1,18 @@
+@import './../../../assets/styles/scss/variables';
+.header{        
+    .header-title{
+        font-family: Karma;
+        font-size: 28px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 35px;
+        letter-spacing: 0em;     
+    }
+    .header-profile .profile-img{
+        i{
+            font-size: 26px;
+            padding-right: 10px;
+            color: $themeColor;
+        }
+    }
+}

@@ -1,0 +1,41 @@
+[
+    {
+        "firstName": "Ronald",
+        "lastName": "Jose",
+        "companyName": "Upwork",
+        "departmentDocumentNumber": "000123321",
+        "checkNumber": "#12345",
+        "checkAmount": 300,        
+        "transmittalNumber": 20201221,
+        "transmittalStatus": "string",
+        "depositNumber": "446",
+        "cashListing": "Saltwater",
+        "comments": "Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit."
+      },
+      {
+        "firstName": "John",
+        "lastName": "Doe",
+        "companyName": "Amazon",
+        "departmentDocumentNumber": "000123321",
+        "checkNumber": "string",
+        "checkAmount": 200,        
+        "transmittalNumber": 20201221,
+        "transmittalStatus": "string",
+        "depositNumber": "string",
+        "cashListing": "Hippogriff",
+        "comments": "Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit."
+      },
+      {
+        "firstName": "Barry",
+        "lastName": "Allen",
+        "companyName": "Starlabs",
+        "departmentDocumentNumber": "000123321",
+        "checkNumber": "777",
+        "checkAmount": 100,        
+        "transmittalNumber": 20201222,
+        "transmittalStatus": "string",
+        "depositNumber": "string",
+        "cashListing": "Hippogriff",
+        "comments": "Donec id elit non mi porta."
+      }
+]

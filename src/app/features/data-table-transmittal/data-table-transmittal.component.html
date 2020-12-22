@@ -1,0 +1,54 @@
+<div class="mat-elevation-z8">
+  <table mat-table class="full-width-table" matSort aria-label="Elements">
+    
+    <!-- transmittalNumber Column -->
+    <ng-container matColumnDef="transmittalNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Transmittal Number</th>
+      <td mat-cell *matCellDef="let row">{{row.transmittalNumber}}</td>
+    </ng-container>
+        
+    <!-- transmittalDate Column -->
+    <ng-container matColumnDef="transmittalDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Transmittal Date</th>
+      <td mat-cell *matCellDef="let row">{{row.transmittalDate}}</td>
+    </ng-container>
+
+      <!-- transmittalTotalCount Column -->
+    <ng-container matColumnDef="transmittalTotalCount">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Transmittal Total Count</th>
+      <td mat-cell *matCellDef="let row">{{row.transmittalTotalCount}}</td>
+    </ng-container>
+
+    <!-- transmittalTotal Column-->
+    <ng-container matColumnDef="transmittalTotal">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Transmittal Total</th>
+      <td mat-cell *matCellDef="let row">{{row.transmittalTotal}}</td>
+    </ng-container>
+
+    <!-- transmittalStatus Column-->
+    <ng-container matColumnDef="transmittalStatus">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Transmittal Status</th>
+      <td mat-cell *matCellDef="let row">{{row.transmittalStatus}}</td>
+    </ng-container>  
+
+      <!-- transmittalStatus Column -->
+      <ng-container>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
+        <td mat-cell *matCellDef="let row">
+          <span class="refund-icon" aria-hidden="true">
+            <i class="fa fa-pencil-alt"></i>      
+          </span>    
+        </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator
+      [length]="dataSource? dataSource.data.length:0"
+      [pageIndex]="0"
+      [pageSize]="10"
+      [pageSizeOptions]="[10,20,30]">
+  </mat-paginator>
+</div>

@@ -1,0 +1,78 @@
+/* You can add global styles to this file, and also import other style files */
+@import './assets/styles/scss/variables';
+@import './assets/styles/scss/mixins-media';
+
+body{    
+    background-color: #E5E5E5!important;
+    button.btn-primary{
+        background-color: $themeColor!important;
+ 
+        border-radius: 4px!important;
+    }
+    button.btn-link, a{
+        color: $buttonLinkColor!important;        
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 161.1%;
+    }
+    label{
+        color: $labelColor!important;        
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 161.1%
+    }
+    p{
+        color: $labelColor!important;
+    }
+    
+    height: 100%; 
+   
+    .main{   
+        
+        @include sm {
+            width: 100%;                                           
+        }   
+        @include lg {       
+            width: 77%;
+            float: right;              
+        }
+        background-color: #E5E5E5;
+        padding-top: 10px;
+        padding-left: 20px;
+        padding-bottom: 0;
+        padding-right: 20px;
+
+       .content-body{
+            background-color: $bgColor;
+            *:not(i){
+                font-family: Raleway;
+                font-style: normal;
+            }
+           .body-title{
+                padding-top: 15px;
+                border-radius: 0;
+                p{                    
+                    font-size: 16px;                    
+                    font-weight: 600;
+                    line-height: 19px;
+                    letter-spacing: 0em;
+                    text-align: left;
+                }
+           }
+
+           p.section-title{                        
+                font-weight: 900;
+                font-size: 16px;
+            }
+            p.section-sub-title{                        
+                font-weight: 800;
+                font-size: 14px;
+            }
+       }
+
+    }
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

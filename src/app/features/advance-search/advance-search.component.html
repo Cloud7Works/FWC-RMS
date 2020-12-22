@@ -1,0 +1,143 @@
+<div class="advance-search">
+    <div class="card">
+        <form [formGroup]="searchForm" class="card-body">
+          
+            <!-- 1st row -->
+            <div class="form-row">
+                <div class="form-group col-lg-4">
+                  <label for="input-firstname">Firstname</label>
+                  <input formControlName="firstName" type="text" class="form-control" id="input-firstname">
+                </div>
+                <div class="form-group col-lg-4">
+                  <label for="input-lastname">Lastname</label>
+                  <input formControlName="lastName" type="text" class="form-control" id="input-lastname">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="input-company-name">Company Name</label>
+                    <input formControlName="companyName" type="text" class="form-control" id="input-company-name">
+                  </div>
+             </div>
+            <!-- 1st row -->
+
+
+            <!-- 2nd row --> 
+              <div class="form-row">
+                <div class="form-group col-lg-4">
+                  <label for="input-check-number">Check Number</label>
+                  <input formControlName="checkNumber" type="text" class="form-control" id="input-check-number">
+                </div>
+
+                <div class="form-group col-lg-4">
+                    <label for="input-check-amount">Check Amount</label>
+                    <input formControlName="checkAmount" type="text" class="form-control" id="input-check-amount">
+                </div>
+
+                <div class="form-group col-lg-4">
+                  <label for="option-cash-listing">Cash Listing</label>
+                  <select id="option-cash-listing" class="form-control"  formControlName="cashListing">
+                    <option selected></option>
+                    <option>Saltwater</option>
+                    <option>Freshwater</option>
+                    <option>Misc</option>
+                  </select>
+                </div>                
+              </div>
+              <!-- 2nd row -->
+
+              
+              <!-- 3rd row -->
+              <div class="form-row">             
+                <div class="col-lg-4">     
+                    <p>Deposit Date Range</p>
+                    <div class="form-row">                      
+                        <div class="form-group col-lg-6">                                               
+                            <input formControlName="depositDateFrom" matInput [matDatepicker]="startdate"                               
+                            class="form-control" 
+                            id="startdate">
+                            <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
+                            <mat-datepicker #startdate></mat-datepicker>
+                          
+                        </div>
+                        <div class="form-group col-lg-6">                         
+                            <input formControlName="depositDateTo" matInput [matDatepicker]="enddate"                             
+                            class="form-control" 
+                            id="enddate">
+                            <mat-datepicker-toggle matSuffix [for]="enddate"></mat-datepicker-toggle>
+                            <mat-datepicker #enddate></mat-datepicker>                                                      
+                        </div>                    
+                    </div>                                     
+                </div>                                                                            
+              </div>
+              <!-- 3rd row -->
+
+
+            <!-- 4th row -->
+              <div class="form-row">
+                <div class="form-group col-lg-4">
+                  <label for="input-transmittal-number">Transmittal Number</label>
+                  <input formControlName="transmittalNumber" type="text" class="form-control" id="input-transmittal-number">
+                </div>
+       
+                <div class="form-group col-lg-4">
+                  <label for="option-transmittal-status">Transmittal Status</label>
+                  <select id="option-transmittal-status" class="form-control"  formControlName="transmittalStatus">
+                    <option selected></option>
+                    <option>Data Entry</option>
+                    <option>Data Entry Verification</option>                    
+                  </select>
+                </div>                
+              </div>
+              <!-- 4th row -->
+
+
+              <!-- 5th row -->
+              <div class="form-row">
+                <div class="form-group col-lg-4">
+                  <label for="input-document-department-number">Department Document Number</label>
+                  <input formControlName="departmentDocumentNumber" type="text" class="form-control" id="input-document-department-number">
+                </div>
+       
+                <div class="form-group col-lg-2">
+                  <label for="option-doc">-</label>
+                  <select id="option-doc" class="form-control"  formControlName="doc">
+                    <option selected>Select...</option>
+                    <option>...</option>
+                  </select>
+                </div>                
+              </div>
+              <!-- 5th row -->
+              
+
+              <!-- 6th row -->
+              <div class="form-row">
+                <div class="form-group col-lg-4">
+                    <label for="option-eo-code">EO Code</label>
+                    <select id="option-eo-code" class="form-control"  formControlName="eoCode">
+                      <option selected></option>
+                      <option>...</option>
+                    </select>
+                  </div>  
+       
+                <div class="form-group col-lg-4">
+                  <label for="option-object-code">Object Code</label>
+                  <select id="option-object-code" class="form-control"  formControlName="objectCode">
+                    <option selected></option>
+                    <option>...</option>
+                  </select>
+                </div>                
+              </div>   
+              <!-- 6th row -->    
+              <div class="form-row">
+                  <div class="form-group-col-lg-4">
+                    <button type="button" class="btn btn-primary" (click)="search()">Search</button>  
+                  </div>
+                  <div class="form-group-col-lg-1">
+                    <button type="button" class="btn btn-link btn-clear">Clear</button>  
+                  </div>                                   
+              </div>  
+            
+           
+            </form>
+      </div>
+</div>
+

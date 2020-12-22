@@ -1,0 +1,21 @@
+.main{
+    .content-body{
+        .calendar-icon {
+            i{
+                position: absolute;
+                top:42px;
+                right: 25px;                
+                cursor: pointer;                   
+            }
+                      
+        }
+
+        mat-datepicker-toggle{
+            position: absolute;
+            top: 29px;
+            right: 15px;
+        }
+
+       
+    }
+}

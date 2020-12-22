@@ -1,0 +1,66 @@
+<div class="main">
+   <content-header></content-header>
+   <div class="content-body">
+       <ng-container [ngSwitch]="currentStep">
+            <ng-container [ngTemplateOutlet]="newTransmittal" *ngSwitchCase="steps.New"></ng-container>    
+            <ng-container [ngTemplateOutlet]="generateTransmittal" *ngSwitchCase="steps.Generate"></ng-container> 
+            <ng-container  *ngSwitchCase="steps.Submit" >
+                <create-transmittal [transmittalStep]="steps.Submit"></create-transmittal>
+            </ng-container> 
+            <ng-container *ngSwitchCase="steps.Final">
+                <create-transmittal [transmittalStep]="steps.Final"></create-transmittal>
+            </ng-container>
+            <div class="d-flex flex-row" *ngIf="currentStep==steps.Submit">
+                <div class="form-group col-lg-4">         
+                    <button class="btn btn-primary" (click)="proceed(steps.Final)">Send to Verification</button>            
+                    <button type="button" class="btn btn-link btn-clear">Cancel</button>  
+                </div>      
+            </div> 
+       </ng-container>       
+    
+   </div>
+</div>
+
+<ng-template #newTransmittal>
+    <div class="form-group col-lg-12 body-title card">
+        <p>Transmittal Queue</p>
+    </div>        
+    <div class="form-group">
+        <div class="col-lg-12">
+            <button class="btn btn-primary" (click)="proceed(steps.Generate)">New Transmittal</button>
+        </div>            
+    </div>
+    <div class="col-lg-12">                                        
+        <p class="section-title">Recent Transmittals</p>
+        <data-table-transmittal></data-table-transmittal>
+    </div>
+</ng-template>
+
+<ng-template #generateTransmittal>
+    <div class="form-group col-lg-12 body-title card">
+        <p>Generate Transmittal</p>
+    </div>
+    <div class="form-group col-lg-3">         
+        <!-- <span class="calendar-icon">
+            <i class="fa fa-calendar"></i>
+        </span>
+        <label for="input-transmittal-date">Transmittal Date</label>
+        <input type="text" class="form-control" id="input-transmittal-date">     
+         -->
+         
+            <label for="input-transmittal-date">Transmittal Date</label>
+            <input matInput [matDatepicker]="picker3" 
+            [value]="date" 
+            class="form-control" 
+            id="input-transmittal-date" 
+            (dateInput)="setDate('input', $event)" 
+            (setDate)="setDate('change', $event)">
+            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+            <mat-datepicker #picker3></mat-datepicker>
+          
+    </div>
+    <div class="form-group col-lg-3 pb-2">         
+        <button class="btn btn-primary" (click)="proceed(steps.Submit)">Next</button>            
+    </div>
+</ng-template>
+

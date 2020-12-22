@@ -1,0 +1,12 @@
+{
+    "departmentDocumentNumber": 1111110,
+    "transmittalNumber": 12120,
+    "checkNumber": 0,
+    "firstName": "Ronald",
+    "lastName": "Jose",
+    "companyName": "string",
+    "checkAmount": 10,
+    "cashListing": "Saltwater",
+    "comments": "string",
+    "dateTimeStamp": "12-21-2021"
+  }
