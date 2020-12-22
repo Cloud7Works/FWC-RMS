@@ -22,8 +22,9 @@
         <div class="d-flex w-100 justify-content-between">
             <p class="section-title"></p>
             <div class="transmittal-edt-del">
-                <i class="fa fa-pencil-alt m-1"></i>
-                <i class="fa fa-trash-alt m-1" (click)="removeTransmittal(idx,i.departmentDocumentNumber)"></i>
+                <i class="fa fa-save m-1" (click)="editDepartmentDocumentRecord('save',i.departmentDocumentNumber)" *ngIf="!i.readOnly"></i>
+                <i class="fa fa-pencil-alt m-1" (click)="editDepartmentDocumentRecord('edit',i.departmentDocumentNumber)" *ngIf="i.readOnly"></i>
+                <i class="fa fa-trash-alt m-1" (click)="deleteDepartmentDocumentRecord(idx,i.departmentDocumentNumber)"></i>
             </div>
         </div>
 
@@ -36,52 +37,10 @@
             </div>
         </div> 
 
-        <!-- group 1 -->
-        <div class="group1 mb-4">
-            <div class="row">
-                <div class="col-2">Firstname:</div>
-                <div class="col-3"><p class="section-sub-title">{{i.firstName}}</p></div>
-                <div class="col-2">Check Number:</div>
-                <div class="col-4"><p class="section-sub-title">{{i.checkNumber}}</p></div>
-            </div>
-
-            <div class="row">
-                <div class="col-2">Lastname:</div>
-                <div class="col-3"><p class="section-sub-title">{{i.lastName}}</p></div>
-                <div class="col-2">Check Amount:</div>
-                <div class="col-4"><p class="section-sub-title">{{i.checkAmount}}</p></div>
-            </div>
-
-            <div class="row">
-                <div class="col-2">Company Name:</div>
-                <div class="col-3"><p class="section-sub-title">{{i.companyName}}</p></div>
-                <div class="col-2">Cash Listing:</div>
-                <div class="col-4"><p class="section-sub-title">{{i.cashListing}}</p></div>
-            </div>
+        <div class="records">                
+            <ng-container *ngTemplateOutlet="(i.readOnly )? readOnlyRecords:editRecords; context: {$implicit:i}" ></ng-container>   
         </div>
-        <!-- group 1 -->
-        
-        <!-- group 2 -->
-        <div class="group2 mb-4">
-            <div class="row">
-                <div class="col-12">Comments:</div>
-                <div class="col-12"><p class="section-sub-title">{{i.comments}}</p></div>            
-            </div>
-        </div>
-
-        <!-- group 3 -->
-        <!-- <div class="group3 mb-4">
-            <div class="row">
-                <div class="col-4">Department Document Number(DDN):</div>
-                <div class="col-1">{{i.departmentDocumentNumber}}</div>            
-            </div>
-            <div class="row">
-                <div class="col-4">Date Timestamp:</div>
-                <div class="col-1">{{i.dateTimestamp}}</div>            
-            </div>
-        </div>       -->
-        <!-- group 3 -->
-
+       
 
     </div>
 
@@ -93,7 +52,7 @@
 <div class="card d-flex" *ngIf="transmittalStep==steps.Submit">
     <form [formGroup]="depDocNumberForm" id="transmittal-entry" class="col-lg-8 p-0" (ngSubmit)="requestDeptDocNumber()">
         <div class="d-flex flex-row new-transmittal-title">
-            <p class="col-lg-4 section-title">Transmittal 4</p>
+            <p class="col-lg-4 section-title">Transmittal</p>
         </div>
         <!-- 1st row -->           
         <div class="d-flex flex-row">                
@@ -176,4 +135,96 @@
     
 </div>
 <!-- transmittal summary -->
+
+
+<ng-template #readOnlyRecords let-model>
+         <!-- group 1 -->
+         <div class="read" >
+            <div class="group1 mb-4">
+                <div class="row">
+                    <div class="col-2">Firstname:</div>
+                    <div class="col-3"><p class="section-sub-title">{{model.firstName}}</p></div>
+                    <div class="col-2">Check Number:</div>
+                    <div class="col-4"><p class="section-sub-title">{{model.checkNumber}}</p></div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-2">Lastname:</div>
+                    <div class="col-3"><p class="section-sub-title">{{model.lastName}}</p></div>
+                    <div class="col-2">Check Amount:</div>
+                    <div class="col-4"><p class="section-sub-title">{{model.checkAmount}}</p></div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-2">Company Name:</div>
+                    <div class="col-3"><p class="section-sub-title">{{model.companyName}}</p></div>
+                    <div class="col-2">Cash Listing:</div>
+                    <div class="col-4"><p class="section-sub-title">{{model.cashListing}}</p></div>
+                </div>
+            </div>
+            <!-- group 1 -->
+            
+            <!-- group 2 -->
+            <div class="group2 mb-4">
+                <div class="row">
+                    <div class="col-12">Comments:</div>
+                    <div class="col-12"><p class="section-sub-title">{{model.comments}}</p></div>            
+                </div>
+            </div>
+            <!-- group 2 -->
+         </div>
+         
+</ng-template>
+
+
+<ng-template #editRecords let-model>    
+    <!-- group 1 -->
+    <div class="edit-record">
+        <div class="group1 mb-4">
+            <div class="row">
+                <p class="col-2">Firstname: </p>          
+                <input type="text" class="form-control col-3" [value]="model.firstName">     
+                <p class="col-2">Check Number:</p>
+                <input type="text" class="form-control col-3" [value]="model.checkNumber">                
+            </div>
+     
+            <div class="row">
+                <p class="col-2">Lastname:</p>           
+                <input type="text" class="form-control col-3" [value]="model.lastName">
+                <p class="col-2">Check Amount:</p>                
+                <input type="text" class="form-control col-3" [value]="model.checkAmount">
+            </div>
+     
+            <div class="row">
+                <p class="col-2">Company Name:</p>           
+                <input type="text" class="form-control col-3" [value]="model.companyName">     
+             
+                <div class="row">                    
+                    <p class="col-4">Cash Listing:</p>
+                    <input type="text" class="form-control col-3" [value]="model.cashListing">          
+                    <!-- <select id="option-cash-listing" class="form-control col" >
+                        <option [selected]="model.cashListing==item" *ngFor="let item of cashListings">{{item}}</option>                 
+                    </select>   -->
+                </div>                   
+                                  
+            </div>
+        </div>
+        <!-- group 1 -->
+        
+        <!-- group 2 -->
+        <div class="group2 mb-4">
+            <div class="row">
+                <p class="col-12">Comments:</p>
+                <div class="form-group col">
+                    <input type="text" class="form-control col-12" [value]="model.comments">  
+                </div>
+                                   
+            </div>
+        </div>
+        <!-- group 2 -->
+    </div>
+    
+  
+</ng-template>
+
 

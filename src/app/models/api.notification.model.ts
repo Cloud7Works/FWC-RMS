@@ -16,12 +16,18 @@ export enum Source{
     TransmittalSummary = 5,
     DeleteDepartmentDocument = 6
 }
+export enum Progress{
+    Idle=0,
+    InProgress=1,
+    Completed =2
+}
 
 export class Status{
-    constructor(public isCompleted: boolean,public isError: boolean, public message: any){
+    constructor(public isCompleted: boolean,public isError: boolean, public message: any,public progress:Progress){
         this.isCompleted=isCompleted;
         this.isError=isError;
         this.message=message;
+        this.progress = progress;
     }
 }
 

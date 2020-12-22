@@ -25,3 +25,15 @@
 .card-summary{
     border-bottom: 0;
 }
+.edit-record{
+    input[type="text"]{
+        height: 30px;
+    }
+    p{        
+        align-self: center;
+        margin:0;
+    }
+    .row{
+        padding-bottom: 5px;
+    }
+}

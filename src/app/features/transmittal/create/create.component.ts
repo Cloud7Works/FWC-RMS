@@ -24,10 +24,12 @@ export class Create implements OnInit {
     checkNumber: new FormControl(null,Validators.required),
     checkAmount: new FormControl(null,Validators.required),
     cashListing: new FormControl(null),
-    comments: new FormControl(null) 
+    comments: new FormControl(null)
  });
-  constructor(private service : FWCService,private detector: ChangeDetectorRef) { }
+  constructor(private service : FWCService) {    
+   }
   steps=TransmittalSteps;
+  cashListings=["Saltwater","Freshwater","Misc"];
   @Input('transmittalStep') transmittalStep : TransmittalSteps = TransmittalSteps.Submit;
   get transmittalList() : TransmittalDetailResponse[]{
     return this.service.retrieve(Source.TransmittalList).data; 
@@ -49,9 +51,7 @@ export class Create implements OnInit {
     //    this.hasValue(this.getFormControl('lastName').value)){
     //     this.getFormControl('companyName').disable();
     // }else if(this.hasValue(this.getFormControl('companyName').value)){
-
-    // }
-    
+    // }    
   }
 
   requestDeptDocNumber(){ 
@@ -60,10 +60,24 @@ export class Create implements OnInit {
     this.depDocNumberForm.reset();      
   }
 
-  removeTransmittal(index : number,depDocNumber: number){
+  deleteDepartmentDocumentRecord(index : number,depDocNumber: number){
     this.transmittalList.splice(index,1);    
     this.service.backend.deleteDepartmentDocRecord(this.transmittal.transmittalNumber,depDocNumber).subscribe();
   }
+
+  isReadOnly = true;  
+  editDepartmentDocumentRecord(type: string,deptDocNumber:number){    
+    this.isReadOnly = !this.isReadOnly;    
+    var doc = this.transmittalList.find(f=>f.departmentDocumentNumber==deptDocNumber);
+    doc.readOnly = this.isReadOnly;
+    if(type=='save'){
+      //api
+    }
+    console.log(type);
+  }
+
+
+  
 
   total(){    
     return this.transmittalList.map(m=>parseInt(m.checkAmount?.toString())).reduce((a, b) => a + b, 0);

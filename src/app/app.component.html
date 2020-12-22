@@ -1,6 +1,8 @@
 <div class="container-fluid p-0" role="main">
+  <mat-spinner class="loading" *ngIf="isLoading"></mat-spinner>
   <navigation-header *ngIf="hideSideMenu$ | async"></navigation-header>
   <div class="child-container">
     <router-outlet></router-outlet>
   </div> 
 </div>
+

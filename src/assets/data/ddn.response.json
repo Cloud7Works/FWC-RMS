@@ -1,4 +1,4 @@
-{
+[{
     "departmentDocumentNumber": 1111110,
     "transmittalNumber": 12120,
     "checkNumber": 0,
@@ -6,7 +6,21 @@
     "lastName": "Jose",
     "companyName": "string",
     "checkAmount": 10,
+    "cashListing": "Freshwater",
+    "comments": "string",
+    "dateTimeStamp": "12-21-2021",
+    "readOnly":true
+  },
+  {
+    "departmentDocumentNumber": 111111,
+    "transmittalNumber": 12121,
+    "checkNumber": 10,
+    "firstName": "Ronald",
+    "lastName": "Jose",
+    "companyName": "string",
+    "checkAmount": 10,
     "cashListing": "Saltwater",
     "comments": "string",
-    "dateTimeStamp": "12-21-2021"
-  }
+    "dateTimeStamp": "12-21-2021",
+    "readOnly":true
+  }]

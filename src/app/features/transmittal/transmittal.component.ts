@@ -29,6 +29,7 @@ export class TransmittalComponent implements OnInit {
     this.currentStep=step;    
     switch (step) {
       case TransmittalSteps.Submit:          
+          this.service.retrieve(Source.TransmittalList).data=[];
           this.service.backend.createTransmittal(this.selectedDate,"Data Entry").subscribe();
         break; 
       case TransmittalSteps.Final:   
@@ -39,8 +40,7 @@ export class TransmittalComponent implements OnInit {
           "transmittalTotalCount":transmittalList.length,
           "transmittalTotal": totalCheckAmount,
           "transmittalStatus": "Data Entry Verification"
-        }
-        console.log(payload);
+        }        
         this.service.backend.updateTransmittal(transmittal.transmittalNumber,payload).subscribe();
         break;       
       default:

@@ -1,6 +1,6 @@
 import { UpdateTransmittalRequest } from './../models/updateTransmittalRequest';
 import { TransmittalResponse } from './../models/transmittalResponse';
-import { Source, Status } from './../models/api.notification.model';
+import { Progress, Source, Status } from './../models/api.notification.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Subject } from 'rxjs';
@@ -8,7 +8,7 @@ import { APINotificationResult } from '../models/api.notification.model';
 import { FWCDataBackend } from '../models/fwc.api.backend.model';
 import { TransmittalSearchResponse } from '../models/transmittalSearchResponse';
 import { TransmittalDetailResponse } from '../models/transmittalDetail';
-const status = new Status(false,false,"");
+const status = new Status(false,false,"",Progress.Idle);
 @Injectable({providedIn:'root'})
 export class FWCService{
     // private readonly _notifier = new Subject<APINotificationResult>();
@@ -18,7 +18,6 @@ export class FWCService{
     retrieve(source : Source){
         return this.dataStore.find(f=>f.source==source);
     }
-
     
     private dataStore = [
         {
@@ -60,7 +59,7 @@ export class FWCService{
             if(g.status.isCompleted){                    
                 this.dataStore[index].data =  
                 Array.isArray(g.result)? [...g.result] : 
-                        [...this.retrieve(g.source).data,g.result];               
+                        [...this.retrieve(g.source).data,g.result];                                  
             }                           
         });
     }

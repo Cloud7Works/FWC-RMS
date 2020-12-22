@@ -21,4 +21,5 @@ export interface TransmittalDetailResponse {
     comments?: string;
     departmentDocumentNumber?: number;
     dateTimeStamp?: string;
+    readOnly?:boolean;
 }

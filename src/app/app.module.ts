@@ -20,8 +20,8 @@ import { ContentHeaderComponent } from './features/content-header/content-header
 import { DataTableTransmittalComponent } from './features/data-table-transmittal/data-table-transmittal.component';
 import { Create } from './features/transmittal/create/create.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {DateAdapter, MatNativeDateModule, MatRippleModule, MAT_DATE_FORMATS} from '@angular/material/core';
-
+import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'LL',
@@ -55,7 +55,7 @@ export const MY_FORMATS = {
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatDatepickerModule,MatNativeDateModule,MatRippleModule
+    MatDatepickerModule,MatNativeDateModule,MatRippleModule,MatProgressSpinnerModule
     
   ],
   providers: [    

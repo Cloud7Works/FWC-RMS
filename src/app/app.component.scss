@@ -1,0 +1,11 @@
+@import './../assets/styles/scss/variables';
+mat-spinner.loading{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -50px 0px 0px -50px;
+    z-index: 1;    
+}
+::ng-deep .mat-progress-spinner circle, .mat-spinner circle{      
+        stroke: $themeColor!important;    
+}
