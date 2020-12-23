@@ -2,7 +2,11 @@
   width: 100%;
 }
 table{
-  // tr:nth-child(even) {background: #286DA8 5%}
+  
+  th.mat-header-cell{
+    font-size: 14px;
+    font-weight: 600;
+  }
   tr.mat-row:nth-child(odd) {background: #f4faff} 
   td.mat-column-transmittalStatus{
     i{

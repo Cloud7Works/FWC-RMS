@@ -1,17 +1,12 @@
-import { UpdateTransmittalRequest } from './../models/updateTransmittalRequest';
-import { TransmittalResponse } from './../models/transmittalResponse';
 import { Progress, Source, Status } from './../models/api.notification.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Subject } from 'rxjs';
 import { APINotificationResult } from '../models/api.notification.model';
 import { FWCDataBackend } from '../models/fwc.api.backend.model';
-import { TransmittalSearchResponse } from '../models/transmittalSearchResponse';
-import { TransmittalDetailResponse } from '../models/transmittalDetail';
 const status = new Status(false,false,"",Progress.Idle);
 @Injectable({providedIn:'root'})
-export class FWCService{
-    // private readonly _notifier = new Subject<APINotificationResult>();
+export class FWCService{    
     readonly notifier = new Subject<APINotificationResult>();
     readonly backend : FWCDataBackend;    
 
@@ -19,6 +14,14 @@ export class FWCService{
         return this.dataStore.find(f=>f.source==source);
     }
     
+    /**
+     * @summary API Response data store 
+     * [Source.TransmittalSearch - TransmittalSearchResponse] 
+     * [Source.TransmittalList - TransmittalDetailResponse]
+     * [Source.TransmittalSummary - TransmittalResponse]
+     * [Source.TransmittalCreation - TransmittalResponse]
+     * [Source.TransmittalUpdate - TransmittalResponse]     
+     */
     private dataStore = [
         {
             source: Source.TransmittalSearch,
@@ -44,10 +47,14 @@ export class FWCService{
             source: Source.DeleteDepartmentDocument,
             data : [],
             status :status
+        },{
+            source: Source.UpdateDepartmentDocumentRecord,
+            data : [],
+            status :status
         }
     ];
 
-    constructor(private http : HttpClient){
+    constructor(http : HttpClient){
         this.backend = new FWCDataBackend(http,this.notifier);    
         this.updateStore();            
     }    
@@ -56,7 +63,7 @@ export class FWCService{
         this.notifier.subscribe(g=>{
             var index = this.dataStore.findIndex(f=>f.source==g.source);
             this.dataStore[index].status = g.status;  
-            if(g.status.isCompleted){                    
+            if(g.status.isCompleted && !g.status.isError){                    
                 this.dataStore[index].data =  
                 Array.isArray(g.result)? [...g.result] : 
                         [...this.retrieve(g.source).data,g.result];                                  

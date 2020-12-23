@@ -1,6 +1,7 @@
 import { Observable } from "rxjs";
 import { CreateTransmittalDetailRequest } from "./createTransmittalDetailRequest";
 import { SearchType } from "./search-type.enum";
+import { TransmittalDetailModel } from "./transmittal-detail.model";
 import { TransmittalDetailResponse } from "./transmittalDetail";
 import { TransmittalResponse } from "./transmittalResponse";
 import { TransmittalSearchRequest } from "./transmittalSearchRequest";
@@ -10,11 +11,11 @@ import { UpdateTransmittalRequest } from "./updateTransmittalRequest";
 export enum Source{
     TransmittalSearch = 0,
     TransmittalCreation = 1,
-    TransmittalUpdate = 2,
-    // TransmittalDetailsCreation = 3,
-    TransmittalList = 4,
-    TransmittalSummary = 5,
-    DeleteDepartmentDocument = 6
+    TransmittalUpdate = 2,    
+    TransmittalList = 3,
+    TransmittalSummary = 4,
+    DeleteDepartmentDocument = 5,
+    UpdateDepartmentDocumentRecord = 6
 }
 export enum Progress{
     Idle=0,
@@ -48,6 +49,6 @@ export interface APISignature{
     updateTransmittal(transmittalNumber: number,model : UpdateTransmittalRequest) : Observable<TransmittalResponse>;
     deleteDepartmentDocRecord(transmittal: number, departmentDocumentNumber : number) : Observable<any>;
     // createTransmittalDetails(model : CreateTransmittalDetailRequest): Observable<TransmittalDetailResponse>;
-    createDepartmentDocumentNumber(transmittalNumber : number, payload : CreateTransmittalDetailRequest): Observable<TransmittalDetailResponse>;
+    createDepartmentDocumentNumber(transmittalNumber : number, payload : CreateTransmittalDetailRequest): Observable<TransmittalDetailModel>;
 }
 

@@ -23,7 +23,8 @@
                     </button>                    
                 </span> 
                 <input type="text" class="form-control input-search" 
-                placeholder="firstname or lastname or company name"
+                placeholder="enter search text"
+                tooltip="firstname or lastname or company name or transmittal number or department document number"
                 #keyword
                 [disabled]="!advanceSearchIndicator" (keydown.enter)="search(keyword.value)">
             </div>
@@ -38,9 +39,9 @@
         </div>
   
       
-        <div class="col-lg-12 search-result">                            
+        <div class="col-lg-12 search-result body-title">                            
                 <advance-search id="adv-search" class="col-lg-12" *ngIf="!advanceSearchIndicator"></advance-search>
-                <p class="section-title">Search Results {{status}}</p>
+                <p class="">Search Results {{status}}</p>
                
                 <data-table-search ></data-table-search>                              
         </div>

@@ -5,15 +5,15 @@
             <ng-container [ngTemplateOutlet]="newTransmittal" *ngSwitchCase="steps.New"></ng-container>    
             <ng-container [ngTemplateOutlet]="generateTransmittal" *ngSwitchCase="steps.Generate"></ng-container> 
             <ng-container  *ngSwitchCase="steps.Submit" >
-                <create-transmittal [transmittalStep]="steps.Submit"></create-transmittal>
+                <create-transmittal [transmittalStep]="steps.Submit" (hideSendVerification)="onHideVerification($event)"></create-transmittal>
             </ng-container> 
             <ng-container *ngSwitchCase="steps.Final">
-                <create-transmittal [transmittalStep]="steps.Final"></create-transmittal>
+                <create-transmittal [transmittalStep]="steps.Final" ></create-transmittal>
             </ng-container>
-            <div class="d-flex flex-row" *ngIf="currentStep==steps.Submit">
-                <div class="form-group col-lg-4">         
-                    <button class="btn btn-primary" (click)="proceed(steps.Final)">Send to Verification</button>            
-                    <button type="button" class="btn btn-link btn-clear">Cancel</button>  
+            <div class="d-flex flex-row">
+                <div class="form-group col-lg-4" *ngIf="!hideSendVerification">         
+                    <button class="btn btn-primary btn-send-verification" (click)="proceed(steps.Final)" *ngIf="currentStep==steps.Submit">Send to Verification</button>            
+                    <button type="button" class="btn btn-link btn-clear btn-queue" (click)="proceed(steps.New)">{{currentStep==steps.Submit?'Cancel':'Go back to Queue'}}</button>  
                 </div>      
             </div> 
        </ng-container>       
@@ -30,8 +30,8 @@
             <button class="btn btn-primary" (click)="proceed(steps.Generate)">New Transmittal</button>
         </div>            
     </div>
-    <div class="col-lg-12">                                        
-        <p class="section-title">Recent Transmittals</p>
+    <div class="col-lg-12 body-title">                                        
+        <p>Recent Transmittals</p>
         <data-table-transmittal></data-table-transmittal>
     </div>
 </ng-template>
@@ -40,14 +40,7 @@
     <div class="form-group col-lg-12 body-title card">
         <p>Generate Transmittal</p>
     </div>
-    <div class="form-group col-lg-3">         
-        <!-- <span class="calendar-icon">
-            <i class="fa fa-calendar"></i>
-        </span>
-        <label for="input-transmittal-date">Transmittal Date</label>
-        <input type="text" class="form-control" id="input-transmittal-date">     
-         -->
-         
+    <div class="form-group col-lg-3">                       
             <label for="input-transmittal-date">Transmittal Date</label>
             <input matInput [matDatepicker]="picker3" 
             [value]="date" 

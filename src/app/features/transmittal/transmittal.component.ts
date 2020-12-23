@@ -4,6 +4,7 @@ import { TransmittalSteps } from './transmittal-steps.enum';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { formatDate } from '../../helper/helper-methods';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class TransmittalComponent implements OnInit {
  selectedDate : string;
  steps =  TransmittalSteps;
  currentStep :string=TransmittalSteps.New;
-  constructor(private service : FWCService,private detector: ChangeDetectorRef) { }  
+  constructor(private service : FWCService, private router : Router,private detector: ChangeDetectorRef) { }  
   ngOnInit(): void {    
         this.selectedDate=formatDate(this.date);
   }
@@ -24,7 +25,12 @@ export class TransmittalComponent implements OnInit {
   setDate(type: string, event: any) {
     this.selectedDate=formatDate(event.value);    
   }
-
+  hideSendVerification:boolean;
+  onHideVerification(hide:boolean){
+    this.hideSendVerification=hide;
+    console.log('hide');
+    console.log(hide);
+  }
   proceed(step : TransmittalSteps){        
     this.currentStep=step;    
     switch (step) {
@@ -43,11 +49,12 @@ export class TransmittalComponent implements OnInit {
         }        
         this.service.backend.updateTransmittal(transmittal.transmittalNumber,payload).subscribe();
         break;       
-      default:
+      default:        
         break;
     }
     this.detector.detectChanges();
-  }
+  } 
+
 
 }
 

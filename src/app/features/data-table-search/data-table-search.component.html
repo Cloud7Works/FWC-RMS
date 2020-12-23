@@ -4,49 +4,49 @@
     <!-- firstName Column -->
     <ng-container matColumnDef="firstName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
-      <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+      <td mat-cell *matCellDef="let row">{{row?.firstName}}</td>
     </ng-container>
         
     <!-- lastName Column -->
     <ng-container matColumnDef="lastName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
-      <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+      <td mat-cell *matCellDef="let row">{{row?.lastName}}</td>
     </ng-container>
 
       <!-- departmentDocumentNumber Column -->
     <ng-container matColumnDef="departmentDocumentNumber">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>DDN</th>
-      <td mat-cell *matCellDef="let row">{{row.departmentDocumentNumber}}</td>
+      <td mat-cell *matCellDef="let row">{{row?.departmentDocumentNumber}}</td>
     </ng-container>
 
     <!-- checkAmount Column -->
     <ng-container matColumnDef="checkAmount">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Check Details</th>
-      <td mat-cell *matCellDef="let row">{{row.checkAmount}}</td>
+      <td mat-cell *matCellDef="let row">{{row?.checkAmount}}</td>
     </ng-container>
 
     <!-- checkDate Column -->
     <ng-container matColumnDef="checkDate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Check Date</th>
-      <td mat-cell *matCellDef="let row">{{row.checkDate}}</td>
+      <td mat-cell *matCellDef="let row">{{row?.checkDate}}</td>
     </ng-container>
 
     <!-- checkNumber Column -->
     <ng-container matColumnDef="checkNumber">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Transmission Details</th>
-      <td mat-cell *matCellDef="let row">{{row.checkNumber}}</td>
+      <td mat-cell *matCellDef="let row">{{row?.checkNumber}}</td>
     </ng-container>
 
     <!-- depositNumber Column -->
     <ng-container matColumnDef="depositNumber">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Deposit Number</th>
-      <td mat-cell *matCellDef="let row">{{row.depositNumber}}</td>
+      <td mat-cell *matCellDef="let row">{{row?.depositNumber}}</td>
     </ng-container>
 
     <!-- cashListing Column -->
     <ng-container matColumnDef="cashListing">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Cash Listing</th>
-      <td mat-cell *matCellDef="let row">{{row.cashListing}}</td>
+      <td mat-cell *matCellDef="let row">{{row?.cashListing}}</td>
     </ng-container>
 
       <!-- transmittalStatus Column -->

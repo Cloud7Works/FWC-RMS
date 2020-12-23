@@ -2,43 +2,52 @@
     <p>Generate Transmittal</p>
 </div>
 
-<div class="d-flex">
-    <div class="col-lg-4">            
-        <p class="section-title">Transmittal Date: {{transmittal?.transmittalDate}}</p>
+<div class="d-flex justify-content-around transmittal-entry-header">
+    <div class="">            
+        <p>Transmittal Date: {{transmittal?.transmittalDate}}</p>
     </div>
-    <div class="col-lg-4 d-flex justify-content-center">           
-        <p class="section-title">Transmittal Number: {{transmittal?.transmittalNumber}}</p>
+    <div class="">           
+        <p>Transmittal Number: {{transmittal?.transmittalNumber}}</p>
     </div>
-    <div class="col-lg-4 d-flex justify-content-end">            
-        <p class="section-title">Transmittal Status: {{transmittal?.transmittalStatus}}</p>
+    <div class="">            
+        <p>Total Count: {{transmittalList.length}}</p>
+    </div>
+    <div class="">            
+        <p>Transmittal Total: ${{total()}}</p>
+    </div>
+    <div class="">            
+        <p>Transmittal Status: {{transmittal?.transmittalStatus}}</p>
     </div>
 </div>
 
 
 <div class="list-group">
 
-    <div class="list-group-item list-group-item-action flex-column align-items-start" 
+    <div class="list-group-item list-group-item-action flex-column align-items-start pb-0" 
          *ngFor="let i of transmittalList; let idx=index">
         <div class="d-flex w-100 justify-content-between">
             <p class="section-title"></p>
-            <div class="transmittal-edt-del">
-                <i class="fa fa-save m-1" (click)="editDepartmentDocumentRecord('save',i.departmentDocumentNumber)" *ngIf="!i.readOnly"></i>
-                <i class="fa fa-pencil-alt m-1" (click)="editDepartmentDocumentRecord('edit',i.departmentDocumentNumber)" *ngIf="i.readOnly"></i>
+            <div class="transmittal-edt-del" *ngIf="transmittalStep==steps.Submit">
+                <i class="fa fa-save m-1" (click)="editDepartmentDocumentRecord(action.Save,i)" *ngIf="!i.readOnly"></i>
+                <i class="fa fa-pencil-alt m-1" (click)="editDepartmentDocumentRecord(action.Read,i)" *ngIf="i.readOnly"></i>
                 <i class="fa fa-trash-alt m-1" (click)="deleteDepartmentDocumentRecord(idx,i.departmentDocumentNumber)"></i>
             </div>
         </div>
 
-        <div class="group3 mb-4">
-            <div class="row">
-                <div class="col-8"><p class="section-title"> Department Document Number(DDN): {{i.departmentDocumentNumber}}</p></div>                
-            </div>
-            <div class="row">
-                <div class="col-8"> <p class="section-title">Date Timestamp: {{i.dateTimeStamp}}</p></div>                    
-            </div>
+        <div class="group3 mb-2">
+            <div class="row d-flex">        
+                <div class="col">
+                    <div class="form-row">
+                        <div class="pr-3"><p class="transmittal-text-value"> Department Document Number(DDN): {{i.departmentDocumentNumber}}</p></div>                
+                        <div> <p class="transmittal-text-value">Date Timestamp: {{i.dateTimeStamp}}</p></div>
+                    </div>                
+                </div>                                            
+                   
+            </div>          
         </div> 
 
         <div class="records">                
-            <ng-container *ngTemplateOutlet="(i.readOnly )? readOnlyRecords:editRecords; context: {$implicit:i}" ></ng-container>   
+            <ng-container *ngTemplateOutlet="(i.readOnly)? readOnlyRecords:editRecords; context: {$implicit:i}" ></ng-container>   
         </div>
        
 
@@ -49,10 +58,10 @@
 </div>
 
 <!-- add new transmittal -->
-<div class="card d-flex" *ngIf="transmittalStep==steps.Submit">
-    <form [formGroup]="depDocNumberForm" id="transmittal-entry" class="col-lg-8 p-0" (ngSubmit)="requestDeptDocNumber()">
-        <div class="d-flex flex-row new-transmittal-title">
-            <p class="col-lg-4 section-title">Transmittal</p>
+<div class="card d-flex" *ngIf="transmittalStep==steps.Submit" >
+    <form [formGroup]="depDocNumberForm" id="transmittal-entry" class="col-lg-8 p-0" (ngSubmit)="requestDeptDocNumber()" *ngIf="formAction==action.Read">
+        <div class="d-flex flex-row new-transmittal-title body-title">
+            <p class="col-lg-4">New Transmittal</p>
         </div>
         <!-- 1st row -->           
         <div class="d-flex flex-row">                
@@ -74,11 +83,11 @@
         <!-- 2nd row -->
         <div class="d-flex  flex-row">
             <div class="form-group col-lg-4">
-                <label for="input-check-number">Check Number</label>
+                <label for="input-check-number">Check Number<span class="required-field">*</span></label>
                 <input type="text" formControlName="checkNumber" class="form-control" id="input-check-number">
             </div>
               <div class="form-group col-lg-4">
-                <label for="input-check-amount">Check Amount</label>
+                <label for="input-check-amount">Check Amount<span class="required-field">*</span></label>
                 <input type="text" formControlName="checkAmount" class="form-control" id="input-check-amount">
               </div>
               <div class="form-group col-lg-4">
@@ -107,32 +116,16 @@
 <!-- add new transmittal -->
 
 <!-- transmittal summary -->
-<div class="card d-flex card-summary">
+<div class="card d-flex card-summary pb-3 pt-3">
     <div class="d-flex flex-row" *ngIf="transmittalStep==steps.Submit">
-        <div class="col-lg-3">
+        <div class="col-lg-3" *ngIf="formAction==action.Read">
             <span class="plus-icon">
                 <i class="fa fa-plus-circle"></i>
             </span>
             <button class="btn btn-add-transmittal" form="transmittal-entry">Save/Add New</button>
         </div>
     </div>
-    
-    <div class="transmittal-summary">
-        <div class="d-flex flex-row">
-            <p class="col-lg-12"> Total Count: {{transmittalList.length}}</p>         
-        </div>
-        <div class="d-flex flex-row">        
-            <p class="col-lg-12">Transmittal Total: ${{total()}}</p>
-        </div>
-    </div>
-   
-    <!-- <div class="d-flex flex-row">
-        <div class="form-group col-lg-3">         
-            <button class="btn btn-primary">Submit</button>            
-            <button type="button" class="btn btn-link btn-clear">Cancel</button>  
-        </div>      
-    </div> -->
-    
+
 </div>
 <!-- transmittal summary -->
 
@@ -143,32 +136,32 @@
             <div class="group1 mb-4">
                 <div class="row">
                     <div class="col-2">Firstname:</div>
-                    <div class="col-3"><p class="section-sub-title">{{model.firstName}}</p></div>
+                    <div class="col-3"><p class="transmittal-text-value">{{model.firstName}}</p></div>
                     <div class="col-2">Check Number:</div>
-                    <div class="col-4"><p class="section-sub-title">{{model.checkNumber}}</p></div>
+                    <div class="col-4"><p class="transmittal-text-value">{{model.checkNumber}}</p></div>
                 </div>
     
                 <div class="row">
                     <div class="col-2">Lastname:</div>
-                    <div class="col-3"><p class="section-sub-title">{{model.lastName}}</p></div>
+                    <div class="col-3"><p class="transmittal-text-value">{{model.lastName}}</p></div>
                     <div class="col-2">Check Amount:</div>
-                    <div class="col-4"><p class="section-sub-title">{{model.checkAmount}}</p></div>
+                    <div class="col-4"><p class="transmittal-text-value">{{model.checkAmount}}</p></div>
                 </div>
     
                 <div class="row">
                     <div class="col-2">Company Name:</div>
-                    <div class="col-3"><p class="section-sub-title">{{model.companyName}}</p></div>
+                    <div class="col-3"><p class="transmittal-text-value">{{model.companyName}}</p></div>
                     <div class="col-2">Cash Listing:</div>
-                    <div class="col-4"><p class="section-sub-title">{{model.cashListing}}</p></div>
+                    <div class="col-4"><p class="transmittal-text-value">{{model.cashListing}}</p></div>
                 </div>
             </div>
             <!-- group 1 -->
             
             <!-- group 2 -->
-            <div class="group2 mb-4">
+            <div class="comments-section mb-4">
                 <div class="row">
                     <div class="col-12">Comments:</div>
-                    <div class="col-12"><p class="section-sub-title">{{model.comments}}</p></div>            
+                    <div class="col-12"><p class="transmittal-text-value">{{model.comments}}</p></div>            
                 </div>
             </div>
             <!-- group 2 -->
@@ -180,48 +173,72 @@
 <ng-template #editRecords let-model>    
     <!-- group 1 -->
     <div class="edit-record">
-        <div class="group1 mb-4">
-            <div class="row">
-                <p class="col-2">Firstname: </p>          
-                <input type="text" class="form-control col-3" [value]="model.firstName">     
-                <p class="col-2">Check Number:</p>
-                <input type="text" class="form-control col-3" [value]="model.checkNumber">                
-            </div>
-     
-            <div class="row">
-                <p class="col-2">Lastname:</p>           
-                <input type="text" class="form-control col-3" [value]="model.lastName">
-                <p class="col-2">Check Amount:</p>                
-                <input type="text" class="form-control col-3" [value]="model.checkAmount">
-            </div>
-     
-            <div class="row">
-                <p class="col-2">Company Name:</p>           
-                <input type="text" class="form-control col-3" [value]="model.companyName">     
-             
-                <div class="row">                    
-                    <p class="col-4">Cash Listing:</p>
-                    <input type="text" class="form-control col-3" [value]="model.cashListing">          
-                    <!-- <select id="option-cash-listing" class="form-control col" >
-                        <option [selected]="model.cashListing==item" *ngFor="let item of cashListings">{{item}}</option>                 
-                    </select>   -->
-                </div>                   
-                                  
-            </div>
+        <div class="mb-4">
+            <form [formGroup]="depDocNumberForm" class="form-horizontal" >
+                <div class="form-row pb-2">
+                    <div class="form-row col-lg-4">
+                        <label class="control-label col-lg-4" for="input-firstname">First Name:</label>                                       
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" id="input-firstname" formControlName="firstName">  
+                        </div>
+                    </div>
+
+                    <div class="form-row col-lg-4">
+                        <label class="control-label col-lg-5" for="input-checknumber">Check Number<span class="required-field">*</span></label>                                       
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" id="input-checknumber" formControlName="checkNumber">  
+                        </div>
+                    </div>                   
+                </div>    
+                
+                <div class="form-row pb-2">
+                    <div class="form-row col-lg-4">
+                        <label class="control-label col-lg-4" for="input-lastname">Last Name:</label>                                       
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" id="input-lastname" formControlName="lastName">  
+                        </div>
+                    </div>
+
+                    <div class="form-row col-lg-4">
+                        <label class="control-label col-lg-5" for="input-checkamount">Check Amount<span class="required-field">*</span></label>                                       
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" id="input-checkamount" formControlName="checkAmount">  
+                        </div>
+                    </div>                   
+                </div>     
+
+                <div class="form-row pb-2">
+                    <div class="form-row col-lg-4">
+                        <label class="control-label col-lg-4" for="input-companyname">Company Name:</label>                                       
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" id="input-companyname" formControlName="companyName">  
+                        </div>
+                    </div>
+
+                    <div class="form-row col-lg-4">
+                        <label class="control-label col-lg-5" for="input-cashlisting">Cash Listing:</label>                                       
+                        <div class="col-lg-7">                            
+                            <select id="option-cash-listing" class="form-control" formControlName="cashListing">
+                                <option [selected]="model.cashListing==item" *ngFor="let item of cashListings">{{item}}</option>                 
+                            </select> 
+                        </div>
+                    </div>                   
+                </div>     
+                                
+                <div class="form-row pb-2">
+                    <div class="form-row col-lg-8">
+                        <label class="control-label col-lg-2" for="input-comments">Comments:</label>                                       
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="input-comments" [value]="model.comments" formControlName="comments">  
+                        </div>
+                    </div>                                    
+                </div>    
+               
+            </form>
+                       
         </div>
         <!-- group 1 -->
-        
-        <!-- group 2 -->
-        <div class="group2 mb-4">
-            <div class="row">
-                <p class="col-12">Comments:</p>
-                <div class="form-group col">
-                    <input type="text" class="form-control col-12" [value]="model.comments">  
-                </div>
-                                   
-            </div>
-        </div>
-        <!-- group 2 -->
+      
     </div>
     
   

@@ -20,6 +20,6 @@ export interface TransmittalDetailResponse {
     cashListing?: string;
     comments?: string;
     departmentDocumentNumber?: number;
-    dateTimeStamp?: string;
-    readOnly?:boolean;
+    dateTimeStamp?: string;    
+    // readOnly?:boolean;
 }

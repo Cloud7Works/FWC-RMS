@@ -8,7 +8,7 @@
     "checkAmount": 10,
     "cashListing": "Freshwater",
     "comments": "string",
-    "dateTimeStamp": "12-21-2021",
+    "dateTimeStamp": "2020-01-20T05:40:34-05:00",
     "readOnly":true
   },
   {
@@ -21,6 +21,6 @@
     "checkAmount": 10,
     "cashListing": "Saltwater",
     "comments": "string",
-    "dateTimeStamp": "12-21-2021",
+    "dateTimeStamp": "2020-01-20T05:40:34-05:00",
     "readOnly":true
   }]
