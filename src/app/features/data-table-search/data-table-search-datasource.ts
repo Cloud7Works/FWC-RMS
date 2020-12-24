@@ -73,8 +73,8 @@ export class DataTableSearchDataSource extends DataSource<TransmittalSearchRespo
         case 'lastName': return compare(+a.lastName, +b.lastName, isAsc);
         case 'departmentDocumentNumber': return compare(a.departmentDocumentNumber, b.departmentDocumentNumber, isAsc);
         case 'checkAmount': return compare(+a.checkAmount, +b.checkAmount, isAsc);
-        case 'checkDate': return compare(a.checkDate, b.checkDate, isAsc);
-        case 'depositNumber': return compare(+a.depositNumber, +b.depositNumber, isAsc);
+        case 'checkNumber': return compare(a.checkNumber, b.checkNumber, isAsc);
+        case 'transmittalNumber': return compare(+a.transmittalNumber, +b.transmittalNumber, isAsc);
         case 'cashListing': return compare(+a.cashListing, +b.cashListing, isAsc);
         case 'transmittalStatus': return compare(+a.transmittalStatus, +b.transmittalStatus, isAsc);
         default: return 0;

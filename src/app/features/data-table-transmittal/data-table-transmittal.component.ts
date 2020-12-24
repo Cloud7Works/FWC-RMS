@@ -2,7 +2,7 @@ import { TransmittalResponse } from './../../models/transmittalResponse';
 import { filter, map, tap } from 'rxjs/operators';
 import { FWCService } from '../../services/fwc.service';
 import { TransmittalSearchResponse } from '../../models/transmittalSearchResponse';
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -15,6 +15,7 @@ import { Source } from '../../models/api.notification.model';
   styleUrls: ['./data-table-transmittal.component.scss']
 })
 export class DataTableTransmittalComponent implements AfterViewInit {
+  @Output() onEditting = new EventEmitter<{edit:boolean,transmittal:TransmittalResponse}>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table: MatTable<TransmittalResponse>;
@@ -29,7 +30,7 @@ constructor(private service : FWCService){
                       'transmittalDate',
                       'transmittalTotalCount',
                       'transmittalTotal',
-                      'transmittalStatus'];
+                      'transmittalStatus','edit'];
  ngOnInit(): void {
    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
    //Add 'implements OnInit' to the class.  
@@ -44,5 +45,9 @@ constructor(private service : FWCService){
       this.dataSource.paginator = this.paginator;
       this.table.dataSource = this.dataSource;
      })).subscribe();
+  }
+
+  edit(transmittal:TransmittalResponse){
+    this.onEditting.emit({edit:true,transmittal:transmittal});
   }
 }

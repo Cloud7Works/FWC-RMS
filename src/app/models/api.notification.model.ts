@@ -9,13 +9,13 @@ import { TransmittalSearchResponse } from "./transmittalSearchResponse";
 import { UpdateTransmittalRequest } from "./updateTransmittalRequest";
 
 export enum Source{
-    TransmittalSearch = 0,
-    TransmittalCreation = 1,
-    TransmittalUpdate = 2,    
-    TransmittalList = 3,
-    TransmittalSummary = 4,
-    DeleteDepartmentDocument = 5,
-    UpdateDepartmentDocumentRecord = 6
+    TransmittalSearch = 'Transmittal Search',
+    TransmittalCreation = 'Transmittal Creation',
+    TransmittalUpdate = 'Transmittal Update',    
+    TransmittalList = 'Department Doc Record',
+    TransmittalSummary = 'Recent Transmittals',
+    DeleteDepartmentDocument = 'Delete Department Document',
+    UpdateDepartmentDocumentRecord = 'Update Department Document Record'
 }
 export enum Progress{
     Idle=0,
@@ -48,7 +48,7 @@ export interface APISignature{
     getTransmittals() : Observable<TransmittalResponse[]>;        
     updateTransmittal(transmittalNumber: number,model : UpdateTransmittalRequest) : Observable<TransmittalResponse>;
     deleteDepartmentDocRecord(transmittal: number, departmentDocumentNumber : number) : Observable<any>;
-    // createTransmittalDetails(model : CreateTransmittalDetailRequest): Observable<TransmittalDetailResponse>;
+    getDeptDocRecord(transmittalNumber : number) :  Observable<TransmittalDetailModel>;
     createDepartmentDocumentNumber(transmittalNumber : number, payload : CreateTransmittalDetailRequest): Observable<TransmittalDetailModel>;
 }
 

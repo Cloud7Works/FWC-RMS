@@ -9,6 +9,7 @@ import { Source } from 'src/app/models/api.notification.model';
   styleUrls: ['./search-page.component.scss']
 })
 export class SearchPageComponent implements OnInit {
+  name='ronald';
   advanceSearchIndicator = true;
   constructor(private service : FWCService) {     
   }

@@ -11,7 +11,6 @@ export class DepartmentDocRecordMapper{
                 return f;
             });
         }
-
        
         return this.formatData(response);
     }

@@ -25,8 +25,8 @@ constructor(private service : FWCService,private detector : ChangeDetectorRef){
                       'firstName',
                       'departmentDocumentNumber',
                       'checkAmount',
-                      'checkDate',                      
-                      'depositNumber',
+                      'checkNumber',                      
+                      'transmittalNumber',
                       'cashListing',
                       'transmittalStatus'];
  

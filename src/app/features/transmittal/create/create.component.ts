@@ -1,7 +1,7 @@
 import { TransmittalDetailModel } from './../../../models/transmittal-detail.model';
 import { TransmittalResponse } from './../../../models/transmittalResponse';
 import { CreateTransmittalDetailRequest } from './../../../models/createTransmittalDetailRequest';
-import { tap, filter, map, switchMap } from 'rxjs/operators';
+import { tap, filter, map, switchMap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { TransmittalDetailResponse } from './../../../models/transmittalDetail';
 import { Source } from '../../../models/api.notification.model';
 import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy, Output, EventEmitter, Input } from '@angular/core';
@@ -9,6 +9,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { FWCService } from '../../../services/fwc.service';
 import { TransmittalSteps } from '../transmittal-steps.enum';
+import { numberWithCommas } from '../../../helper/helper-methods';
 export enum FormAction {
   Read = 'read',
   Save = 'save'
@@ -21,15 +22,16 @@ export enum FormAction {
 export class Create implements OnInit {
 
   depDocNumberForm = new FormGroup({
-    firstName: new FormControl(null,Validators.required),
-    lastName: new FormControl(null,Validators.required),
-    companyName: new FormControl(null,Validators.required),
+    firstName: new FormControl(null),
+    lastName: new FormControl(null),
+    companyName: new FormControl(null),
     checkNumber: new FormControl(null,Validators.required),
     checkAmount: new FormControl(null,Validators.required),
     cashListing: new FormControl(null),
     comments: new FormControl(null)
  });
   constructor(private service : FWCService) {    
+    
    }
   steps=TransmittalSteps;
   cashListings=["Saltwater","Freshwater","Misc"];
@@ -50,16 +52,57 @@ export class Create implements OnInit {
   hasValue = (val:string)=>{
     return val && val!=="";
   }
-
-  ngOnInit(): void { 
-    // if(this.hasValue(this.getFormControl('firstName').value) && 
-    //    this.hasValue(this.getFormControl('lastName').value)){
-    //     this.getFormControl('companyName').disable();
-    // }else if(this.hasValue(this.getFormControl('companyName').value)){
-    // }    
-    this.depDocNumberForm.get('comments').valueChanges.subscribe(d=>{
-      console.log(this.depDocNumberForm.controls);
+  disableField:boolean;
+  ngOnInit(): void {    
+    this.getFormControl('firstName').valueChanges.pipe(debounceTime(500),distinctUntilChanged()).subscribe(d=>{
+      if(this.hasValue(d) && this.hasValue(this.getFormControl('lastName').value)){
+        this.getFormControl('companyName').setValidators(null);
+        this.getFormControl('firstName').setValidators(null);  
+        this.getFormControl('lastName').setValidators(null);   
+        this.getFormControl('companyName').enable({onlySelf:true});
+      }else if(this.hasValue(d) || this.hasValue(this.getFormControl('lastName').value)){
+        this.getFormControl('companyName').disable({onlySelf:true});
+        this.getFormControl('firstName').setValidators([Validators.required]);  
+        this.getFormControl('lastName').setValidators([Validators.required]);       
+      }else{
+        this.getFormControl('companyName').enable({onlySelf:true});
+      }
+      this.depDocNumberForm.updateValueAndValidity();
     });
+
+    this.getFormControl('lastName').valueChanges.pipe(debounceTime(500),distinctUntilChanged()).subscribe(d=>{
+      if(!this.hasValue(d) && !this.hasValue(this.getFormControl('firstName').value)){
+        this.getFormControl('companyName').setValidators(null);
+        this.getFormControl('firstName').setValidators(null);  
+        this.getFormControl('lastName').setValidators(null);  ;
+        this.getFormControl('companyName').enable({onlySelf:true});
+      }else if(this.hasValue(d) || this.hasValue(this.getFormControl('firstName').value)){
+        this.getFormControl('companyName').disable({onlySelf:true});
+        this.getFormControl('firstName').setValidators([Validators.required]);  
+        this.getFormControl('lastName').setValidators([Validators.required]);  
+      }else{
+        this.getFormControl('companyName').enable({onlySelf:true});
+      }
+      this.depDocNumberForm.updateValueAndValidity();
+    });
+
+    this.getFormControl('companyName').valueChanges.pipe(debounceTime(500),distinctUntilChanged()).subscribe(d=>{
+      if(this.hasValue(d)){
+        this.getFormControl('firstName').disable({onlySelf:true});
+        this.getFormControl('lastName').disable({onlySelf:true});
+      }else{
+        this.getFormControl('firstName').enable({onlySelf:true});
+        this.getFormControl('lastName').enable({onlySelf:true});
+        this.getFormControl('firstName').setValidators([Validators.required]);  
+        this.getFormControl('lastName').setValidators([Validators.required]);  
+        this.getFormControl('companyName').setValidators([Validators.required]);  
+      }
+    });
+
+  }
+
+  getFormattedAmount(amount:number){
+    return numberWithCommas(amount);
   }
 
   requestDeptDocNumber(){ 
@@ -128,7 +171,7 @@ export class Create implements OnInit {
   }
   
   total(){    
-    return this.transmittalList.map(m=>parseFloat(m.checkAmount?.toString())).reduce((a, b) => a + b, 0);
+    return this.getFormattedAmount(this.transmittalList.map(m=>parseFloat(m.checkAmount?.toString())).reduce((a, b) => a + b, 0));
   }
 
 }

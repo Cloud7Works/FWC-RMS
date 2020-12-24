@@ -3,6 +3,7 @@
 @import './assets/styles/scss/mixins-media';
 
 body{    
+   
     background-color: #E5E5E5!important;
     button.btn-primary{
         background-color: $themeColor!important;
@@ -31,7 +32,20 @@ body{
    
     .main{   
         
-        
+         .search-tooltip .tooltip-inner {
+            background-color: $themeColor;    
+            max-width: 100%;                  
+            font-family: monospace;
+            .emphasize-key{                
+                font-weight: bold;
+                text-decoration: underline;
+                font-style:  italic;                
+            }
+          }
+          .search-tooltip .arrow::before {
+            border-top-color: $themeColor;
+          }
+
         @include sm {
             width: 100%;                                           
         }   
@@ -45,7 +59,8 @@ body{
         padding-bottom: 0;
         padding-right: 20px;
 
-       .content-body{
+       .content-body{      
+        
             background-color: $bgColor;
             *:not(i){
                 font-family: Arial;
@@ -74,6 +89,11 @@ body{
        }
 
     }
+    
+    .form-control.ng-touched.ng-invalid{
+        border:  2px solid red;
+    }    
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+

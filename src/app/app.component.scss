@@ -9,3 +9,12 @@ mat-spinner.loading{
 ::ng-deep .mat-progress-spinner circle, .mat-spinner circle{      
         stroke: $themeColor!important;    
 }
+.toast-container{
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    top: 0;
+    .bg-success{
+        background-color: $themeColor!important;
+    }
+}

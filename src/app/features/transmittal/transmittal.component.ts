@@ -1,10 +1,11 @@
+import { TransmittalResponse } from './../../models/transmittalResponse';
 import { Source } from './../../models/api.notification.model';
 import { FWCService } from 'src/app/services/fwc.service';
 import { TransmittalSteps } from './transmittal-steps.enum';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { formatDate } from '../../helper/helper-methods';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 
 
 @Component({
@@ -17,26 +18,36 @@ export class TransmittalComponent implements OnInit {
  selectedDate : string;
  steps =  TransmittalSteps;
  currentStep :string=TransmittalSteps.New;
-  constructor(private service : FWCService, private router : Router,private detector: ChangeDetectorRef) { }  
+  constructor(private service : FWCService, private detector: ChangeDetectorRef) { }  
   ngOnInit(): void {    
-        this.selectedDate=formatDate(this.date);
+      this.selectedDate=formatDate(this.date);
   }
 
-  setDate(type: string, event: any) {
+  setDate(event: any) {
     this.selectedDate=formatDate(event.value);    
   }
+
   hideSendVerification:boolean;
   onHideVerification(hide:boolean){
     this.hideSendVerification=hide;
-    console.log('hide');
-    console.log(hide);
   }
-  proceed(step : TransmittalSteps){        
+
+  get hasDeptDocRecord(){
+    return this.service.retrieve(Source.TransmittalList).data.length!==0;
+  }
+
+  proceed(step : TransmittalSteps,options? : {edit:boolean,transmittal:TransmittalResponse}){        
     this.currentStep=step;    
     switch (step) {
-      case TransmittalSteps.Submit:          
+      case TransmittalSteps.Submit:       
+        if(!options)   {
           this.service.retrieve(Source.TransmittalList).data=[];
           this.service.backend.createTransmittal(this.selectedDate,"Data Entry").subscribe();
+        }else{
+          this.service.retrieve(Source.TransmittalCreation).data=[options.transmittal];
+          this.service.backend.getDeptDocRecord(options.transmittal.transmittalNumber).subscribe();          
+        }
+            
         break; 
       case TransmittalSteps.Final:   
         var transmittal = this.service.retrieve(Source.TransmittalCreation).data[0];               
@@ -47,13 +58,15 @@ export class TransmittalComponent implements OnInit {
           "transmittalTotal": totalCheckAmount,
           "transmittalStatus": "Data Entry Verification"
         }        
-        this.service.backend.updateTransmittal(transmittal.transmittalNumber,payload).subscribe();
+        this.service.backend.updateTransmittal(transmittal.transmittalNumber,payload).pipe(tap(()=>this.service.send.next(true))).subscribe();
         break;       
       default:        
         break;
     }
     this.detector.detectChanges();
   } 
+
+
 
 
 }

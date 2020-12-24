@@ -22,17 +22,12 @@ import { Create } from './features/transmittal/create/create.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'LL',
-  },
-  display: {
-    dateInput: 'LL',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
+import { AppTooltipComponent } from './features/app-tooltip/app-tooltip.component';
+import { AppTooltipModule } from './features/app-tooltip/app-tooltip.module';
+import { CommonModule } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NotFoundComponent } from './features/not-found/not-found.component';
+
 
 @NgModule({
   declarations: [
@@ -45,7 +40,8 @@ export const MY_FORMATS = {
     AdvanceSearchComponent,
     TransmittalComponent,
     ContentHeaderComponent,
-    Create
+    Create,
+    NotFoundComponent    
   ],
   imports: [
     BrowserModule,
@@ -55,7 +51,11 @@ export const MY_FORMATS = {
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatDatepickerModule,MatNativeDateModule,MatRippleModule,MatProgressSpinnerModule
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRippleModule,
+    MatProgressSpinnerModule,    
+    CommonModule, NgbModule
     
   ],
   providers: [    

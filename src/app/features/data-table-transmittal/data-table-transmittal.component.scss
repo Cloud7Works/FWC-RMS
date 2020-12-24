@@ -1,3 +1,4 @@
+@import '../../../assets/styles/scss/variables';
 .full-width-table {
   width: 100%;
 }
@@ -6,6 +7,10 @@ table{
   th.mat-header-cell{
     font-size: 14px;
     font-weight: 600;
+  }
+  td .edit-icon{
+    color: $themeColor;
+    cursor: pointer;
   }
   tr.mat-row:nth-child(odd) {background: #f4faff} 
   td.mat-column-transmittalStatus{

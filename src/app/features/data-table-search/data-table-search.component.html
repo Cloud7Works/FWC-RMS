@@ -21,26 +21,20 @@
 
     <!-- checkAmount Column -->
     <ng-container matColumnDef="checkAmount">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Check Details</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Check Amount</th>
       <td mat-cell *matCellDef="let row">{{row?.checkAmount}}</td>
-    </ng-container>
-
-    <!-- checkDate Column -->
-    <ng-container matColumnDef="checkDate">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Check Date</th>
-      <td mat-cell *matCellDef="let row">{{row?.checkDate}}</td>
     </ng-container>
 
     <!-- checkNumber Column -->
     <ng-container matColumnDef="checkNumber">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Transmission Details</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Check Number</th>
       <td mat-cell *matCellDef="let row">{{row?.checkNumber}}</td>
     </ng-container>
 
     <!-- depositNumber Column -->
-    <ng-container matColumnDef="depositNumber">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Deposit Number</th>
-      <td mat-cell *matCellDef="let row">{{row?.depositNumber}}</td>
+    <ng-container matColumnDef="transmittalNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Transmittal Number</th>
+      <td mat-cell *matCellDef="let row">{{row?.transmittalNumber}}</td>
     </ng-container>
 
     <!-- cashListing Column -->

@@ -20,7 +20,6 @@
     </div>
 </div>
 
-
 <div class="list-group">
 
     <div class="list-group-item list-group-item-action flex-column align-items-start pb-0" 
@@ -28,9 +27,10 @@
         <div class="d-flex w-100 justify-content-between">
             <p class="section-title"></p>
             <div class="transmittal-edt-del" *ngIf="transmittalStep==steps.Submit">
-                <i class="fa fa-save m-1" (click)="editDepartmentDocumentRecord(action.Save,i)" *ngIf="!i.readOnly"></i>
-                <i class="fa fa-pencil-alt m-1" (click)="editDepartmentDocumentRecord(action.Read,i)" *ngIf="i.readOnly"></i>
-                <i class="fa fa-trash-alt m-1" (click)="deleteDepartmentDocumentRecord(idx,i.departmentDocumentNumber)"></i>
+                <i class="fa fa-save m-1" (click)="editDepartmentDocumentRecord(action.Save,i)" *ngIf="!i.readOnly"  [ngClass]="{'save-disabled': depDocNumberForm.invalid}" ></i>
+                <i class="fa fa-pencil-alt m-1" (click)="editDepartmentDocumentRecord(action.Read,i)" *ngIf="i.readOnly"></i>                
+                <i class="fa fa-trash-alt m-1" (click)="deleteDepartmentDocumentRecord(idx,i.departmentDocumentNumber)" 
+                [ngStyle]="{'color': i.readOnly? '':'grey', 'pointer-events':i.readOnly? 'auto':'none'}"></i>                           
             </div>
         </div>
 
@@ -52,16 +52,14 @@
        
 
     </div>
-
   
-
 </div>
 
 <!-- add new transmittal -->
-<div class="card d-flex" *ngIf="transmittalStep==steps.Submit" >
+<div class="card d-flex new-transmittal" *ngIf="transmittalStep==steps.Submit" >
     <form [formGroup]="depDocNumberForm" id="transmittal-entry" class="col-lg-8 p-0" (ngSubmit)="requestDeptDocNumber()" *ngIf="formAction==action.Read">
         <div class="d-flex flex-row new-transmittal-title body-title">
-            <p class="col-lg-4">New Transmittal</p>
+            <p class="col-lg-8">New Department Document</p>
         </div>
         <!-- 1st row -->           
         <div class="d-flex flex-row">                
@@ -84,11 +82,12 @@
         <div class="d-flex  flex-row">
             <div class="form-group col-lg-4">
                 <label for="input-check-number">Check Number<span class="required-field">*</span></label>
-                <input type="text" formControlName="checkNumber" class="form-control" id="input-check-number">
+                <input type="number" formControlName="checkNumber" class="form-control" id="input-check-number">
             </div>
               <div class="form-group col-lg-4">
                 <label for="input-check-amount">Check Amount<span class="required-field">*</span></label>
-                <input type="text" formControlName="checkAmount" class="form-control" id="input-check-amount">
+                <input type="number" formControlName="checkAmount" class="form-control input-amount" id="input-check-amount">
+                <span class="dollar-icon"><i class="fa fa-dollar-sign"></i> </span>
               </div>
               <div class="form-group col-lg-4">
                 <label for="option-cash-listing">Cash Listing</label>
@@ -119,10 +118,10 @@
 <div class="card d-flex card-summary pb-3 pt-3">
     <div class="d-flex flex-row" *ngIf="transmittalStep==steps.Submit">
         <div class="col-lg-3" *ngIf="formAction==action.Read">
-            <span class="plus-icon">
+            <span class="plus-icon"  [ngClass]="{'save-disabled': depDocNumberForm.invalid}">
                 <i class="fa fa-plus-circle"></i>
             </span>
-            <button class="btn btn-add-transmittal" form="transmittal-entry">Save/Add New</button>
+            <button class="btn btn-add-transmittal" form="transmittal-entry"  [disabled]="depDocNumberForm.invalid">Save/Add New</button>
         </div>
     </div>
 
@@ -135,24 +134,24 @@
          <div class="read" >
             <div class="group1 mb-4">
                 <div class="row">
-                    <div class="col-2">Firstname:</div>
-                    <div class="col-3"><p class="transmittal-text-value">{{model.firstName}}</p></div>
-                    <div class="col-2">Check Number:</div>
-                    <div class="col-4"><p class="transmittal-text-value">{{model.checkNumber}}</p></div>
+                    <div class="col-2 transmittal-text-value">Firstname:</div>
+                    <div class="col-3"><p class="">{{model.firstName}}</p></div>
+                    <div class="col-2 transmittal-text-value">Check Number:</div>
+                    <div class="col-4"><p class="">{{model.checkNumber}}</p></div>
                 </div>
     
                 <div class="row">
-                    <div class="col-2">Lastname:</div>
-                    <div class="col-3"><p class="transmittal-text-value">{{model.lastName}}</p></div>
-                    <div class="col-2">Check Amount:</div>
-                    <div class="col-4"><p class="transmittal-text-value">{{model.checkAmount}}</p></div>
+                    <div class="col-2 transmittal-text-value">Lastname:</div>
+                    <div class="col-3"><p class="">{{model.lastName}}</p></div>
+                    <div class="col-2 transmittal-text-value">Check Amount:</div>
+                    <div class="col-4"><p class="">${{getFormattedAmount(model.checkAmount)}}</p></div>
                 </div>
     
                 <div class="row">
-                    <div class="col-2">Company Name:</div>
-                    <div class="col-3"><p class="transmittal-text-value">{{model.companyName}}</p></div>
-                    <div class="col-2">Cash Listing:</div>
-                    <div class="col-4"><p class="transmittal-text-value">{{model.cashListing}}</p></div>
+                    <div class="col-2 transmittal-text-value">Company Name:</div>
+                    <div class="col-3"><p class="">{{model.companyName}}</p></div>
+                    <div class="col-2 transmittal-text-value">Cash Listing:</div>
+                    <div class="col-4"><p class="">{{model.cashListing}}</p></div>
                 </div>
             </div>
             <!-- group 1 -->
@@ -160,8 +159,8 @@
             <!-- group 2 -->
             <div class="comments-section mb-4">
                 <div class="row">
-                    <div class="col-12">Comments:</div>
-                    <div class="col-12"><p class="transmittal-text-value">{{model.comments}}</p></div>            
+                    <div class="col-12 transmittal-text-value">Comments:</div>
+                    <div class="col-12"><p class="">{{model.comments}}</p></div>            
                 </div>
             </div>
             <!-- group 2 -->
@@ -172,7 +171,7 @@
 
 <ng-template #editRecords let-model>    
     <!-- group 1 -->
-    <div class="edit-record">
+    <div class="edit-transmittal">
         <div class="mb-4">
             <form [formGroup]="depDocNumberForm" class="form-horizontal" >
                 <div class="form-row pb-2">
@@ -186,7 +185,7 @@
                     <div class="form-row col-lg-4">
                         <label class="control-label col-lg-5" for="input-checknumber">Check Number<span class="required-field">*</span></label>                                       
                         <div class="col-lg-7">
-                            <input type="text" class="form-control" id="input-checknumber" formControlName="checkNumber">  
+                            <input type="number" class="form-control" id="input-checknumber" formControlName="checkNumber">  
                         </div>
                     </div>                   
                 </div>    
@@ -202,7 +201,8 @@
                     <div class="form-row col-lg-4">
                         <label class="control-label col-lg-5" for="input-checkamount">Check Amount<span class="required-field">*</span></label>                                       
                         <div class="col-lg-7">
-                            <input type="text" class="form-control" id="input-checkamount" formControlName="checkAmount">  
+                            <input type="number" class="form-control input-amount" id="input-checkamount" formControlName="checkAmount">  
+                            <span class="dollar-icon"><i class="fa fa-dollar-sign"></i> </span>
                         </div>
                     </div>                   
                 </div>     

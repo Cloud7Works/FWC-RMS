@@ -9,7 +9,7 @@ const status = new Status(false,false,"",Progress.Idle);
 export class FWCService{    
     readonly notifier = new Subject<APINotificationResult>();
     readonly backend : FWCDataBackend;    
-
+    send = new Subject<boolean>();
     retrieve(source : Source){
         return this.dataStore.find(f=>f.source==source);
     }

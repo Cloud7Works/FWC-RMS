@@ -21,16 +21,17 @@ export class FWCDataBackend implements APISignature{
     api : Observable<any> = of(null);
     httpOptions = {headers: new HttpHeaders({'content-type':'application/json'})};
 
-    result(source: Source, mapper? : any){
+    result(source: Source, mapper? : any, notificationMessage? : {type:'CRUD',operation:any}){
         return this.api.pipe(
-        catchError(error=> of(new Status(true,true,error,Progress.Completed))),
+        catchError(error=> of(new Status(true,true,{type : 'CRUD', operation:'Something went wrong'},Progress.Completed))),
         map((response : any)=>{ 
             var data: any;           
             data = mapper && !(response instanceof Status)? mapper.map(response) : response;
             if(response instanceof Status){
                 this.notify.next(new APINotificationResult(source,data,null));
             }else{
-                this.notify.next(new APINotificationResult(source,new Status(true,false,'200',Progress.Completed),data));
+                this.notify.next(new APINotificationResult(source,
+                                 new Status(true,false,notificationMessage?notificationMessage:'OK',Progress.Completed),data));
             }                  
             return data;
         }));
@@ -55,9 +56,7 @@ export class FWCDataBackend implements APISignature{
     // GET : /transmittals
     public getTransmittals() : Observable<TransmittalResponse[]>{       
         this.notify.next(new APINotificationResult(Source.TransmittalSummary,new Status(false,false,'',Progress.InProgress),null));
-        var path = "transmittals/?transmittalStatus=Data%20Entry";
-        console.log('get recent transmittals');
-        console.log(path);
+        var path = "transmittals/?transmittalStatus=Data%20Entry";        
         this.api = this.http.get(this.host+'/'+ path,this.httpOptions);                
         // this.api = this.http.get('./../assets/data/transmittal-summary.response.json');
         return this.result(Source.TransmittalSummary,new RecentTransmittalMapper());
@@ -69,21 +68,16 @@ export class FWCDataBackend implements APISignature{
         var payload = {
         "transmittalDate": transmittalDate,
         "transmittalStatus": transmittalStatus
-        }        
-        console.log('createTransmittal');
-        console.log(payload);
+        }              
         this.api = this.http.post(this.host+'/transmittals',payload,this.httpOptions);
         // this.api = this.http.get('./../assets/data/create-transmittal.response.json');
-        return this.result(Source.TransmittalCreation,new CreateTransmittalMapper());
+        return this.result(Source.TransmittalCreation,new CreateTransmittalMapper(),{type:'CRUD',operation:'Transmittal Successfuly Created'});
     }
 
      // PATCH : /transmittals/{transmittalNumber} Update a Transmittal record
      public updateTransmittal(transmittalNumber : number ,payload : UpdateTransmittalRequest) :  Observable<TransmittalResponse>{      
         this.notify.next(new APINotificationResult(Source.TransmittalUpdate,new Status(false,false,'',Progress.InProgress),null));  
-        var path = "transmittals/"+transmittalNumber;
-        console.log('updateTransmittal');
-        console.log(payload);
-        console.log(path);
+        var path = "transmittals/"+transmittalNumber;       
         this.api = this.http.patch(this.host + "/" + path ,payload,this.httpOptions);
         // this.api=of({
         //     "transmittalNumber": 0,
@@ -98,37 +92,41 @@ export class FWCDataBackend implements APISignature{
     //DELETE /transmittals/{transmittalNumber}/departmentDocuments/{departmentDocumentsNumber}
     public deleteDepartmentDocRecord(transmittalNumber: number, departmentDocumentNumber:number) : Observable<any>{
         this.notify.next(new APINotificationResult(Source.DeleteDepartmentDocument,new Status(false,false,'',Progress.InProgress),null));  
-        var path = "transmittals/"+transmittalNumber+"/departmentDocuments/"+departmentDocumentNumber;
-        console.log('delete');        
-        console.log(path);
+        var path = "transmittals/"+transmittalNumber+"/departmentDocuments/"+departmentDocumentNumber;   
         this.api = this.http.delete(this.host + '/' +path,this.httpOptions);
-        return this.result(Source.DeleteDepartmentDocument);
+        return this.result(Source.DeleteDepartmentDocument,null,{type:'CRUD',operation:'Department Document Record Successfuly Deleted'});
     }
 
 
-       // PATCH : /transmittals/{transmittalNumber}/departmentDocuments/{departmentDocumentsNumber}
+    // PATCH : /transmittals/{transmittalNumber}/departmentDocuments/{departmentDocumentsNumber}
     public updateDeptDocRecord(transmittalNumber : number,deptDocNumber:number ,payload : CreateTransmittalDetailRequest,refRecord:TransmittalDetailModel) :  Observable<TransmittalDetailModel>{      
         this.notify.next(new APINotificationResult(Source.UpdateDepartmentDocumentRecord,new Status(false,false,'',Progress.InProgress),null));  
-        var path = "transmittals/"+transmittalNumber+'/departmentDocuments/'+deptDocNumber;
-        console.log('updateTransmittal');
-        console.log(payload);
-        console.log(path);
+        var path = "transmittals/"+transmittalNumber+'/departmentDocuments/'+deptDocNumber;      
         this.api = this.http.patch(this.host + "/" + path ,payload,this.httpOptions);
      
-        return this.result(Source.UpdateDepartmentDocumentRecord,new UpdateDepartmentDocRecordMapper(refRecord) );
+        return this.result(Source.UpdateDepartmentDocumentRecord,
+            new UpdateDepartmentDocRecordMapper(refRecord),{type:'CRUD',operation:'Department Document Record Successfuly Updated'} );
+    }
+
+    // GET : /transmittals/{transmittalNumber}/departmentDocuments
+    public getDeptDocRecord(transmittalNumber : number) :  Observable<TransmittalDetailModel>{      
+        this.notify.next(new APINotificationResult(Source.TransmittalList,new Status(false,false,'',Progress.InProgress),null));  
+        var path = "transmittals/"+transmittalNumber+'/departmentDocuments';
+        console.log('updateTransmittal');            
+        console.log(path);
+        this.api = this.http.get(this.host + "/" + path ,this.httpOptions);
+        
+        return this.result(Source.TransmittalList,new DepartmentDocRecordMapper());
     }
 
 
     // POST : /transmittals/{transmittalNumber}/departmentDocuments
     public createDepartmentDocumentNumber(transmittalNumber : number, payload : CreateTransmittalDetailRequest) : Observable<TransmittalDetailModel>{                       
         this.notify.next(new APINotificationResult(Source.TransmittalList,new Status(false,false,'',Progress.InProgress),null));          
-        var path = transmittalNumber + "/departmentDocuments";
-        console.log('createDepartmentDocumentNumber');
-        console.log(payload);
-        console.log(path);
+        var path = transmittalNumber + "/departmentDocuments";        
         this.api = this.http.post(this.host+ "/transmittals/" + path ,payload, this.httpOptions);
         // this.api = this.http.get('./../assets/data/ddn.response.json');
-        return this.result(Source.TransmittalList,new DepartmentDocRecordMapper());
+        return this.result(Source.TransmittalList,new DepartmentDocRecordMapper(),{type:'CRUD',operation:'Department Document Record Successfuly Saved'});
     }
     
 }

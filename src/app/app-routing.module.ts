@@ -1,3 +1,4 @@
+import { NotFoundComponent } from './features/not-found/not-found.component';
 import { TransmittalComponent } from './features/transmittal/transmittal.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -19,7 +20,7 @@ const routes: Routes = [
     component:TransmittalComponent
   },{
     path: '**',
-    redirectTo: 'not-found',
+    component:NotFoundComponent
   }];
 
 @NgModule({

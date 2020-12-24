@@ -1,10 +1,14 @@
 @import '../../../../assets/styles/scss/variables';
 .plus-icon{
     position: absolute;
-    top:9px;
+    top:8px;
     left: 15px;   
     cursor: pointer;      
     color:$themeColor;
+}
+.plus-icon.save-disabled{
+    pointer-events:none;
+    color:grey;
 }
 .btn-add-transmittal{
    margin-left:10px;
@@ -33,7 +37,11 @@
     }
     i.fa-save{
         font-size: 20px;
-        margin-left: 15px!important;
+        margin-right: 15px!important;        
+    }
+    i.fa-save.save-disabled{
+        pointer-events:none;
+        color:grey;
     }
 }
 .card-summary{
@@ -43,8 +51,22 @@
 .comments-section p{
     font-weight: normal!important;
 }
-.edit-record{
-    input[type="text"]{
+
+.new-transmittal{
+    .dollar-icon{
+        position: absolute;
+        top: 39px;
+        font-size: 15px;
+        color: #80808061;
+        left: 20px;
+    }
+    input[type="number"].input-amount{
+        padding-left: 20px!important;
+    }   
+}
+
+.edit-transmittal{
+    input[type="text"],input[type="number"]{
         height: 30px;
     }
     p{        
@@ -58,7 +80,18 @@
     .form-horizontal div.form-row:last-child{
         padding-right: 15px;
     }
+    input[type="number"].input-amount{
+        padding-left: 20px!important;
+    }
+    .dollar-icon{
+        position: absolute;
+        top: 5px;
+        font-size: 15px;
+        color: #80808061;
+        left: 10px;
+    }
 }
+
 .transmittal-entry-header {
     background-color:$themeColor;
     padding-top: 10px;
@@ -69,6 +102,7 @@
     }
 }
 .transmittal-text-value{
+    font-size: 13px!important;
     font-weight: 700!important;
 }
 
