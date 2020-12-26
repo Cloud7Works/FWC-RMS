@@ -15,10 +15,10 @@ export class NavigationHeaderComponent {
    }
   menu = [{option:"Home",isActive:true, path:'home'},
           {option:"Data Entry",isActive:false, path:'transmittal'},
-          {option:"Code Assignment",isActive:false, path:'/app-not-found'},
-          {option:"Revenue Management",isActive:false, path:''},
-          {option:"Reports",isActive:false, path:''},
-          {option:"Code Maintenance",isActive:false, path:''}];
+          {option:"Code Assignment",isActive:false, path:'/unavailable'},
+          {option:"Revenue Management",isActive:false, path:'/unavailable'},
+          {option:"Reports",isActive:false, path:'/unavailable'},
+          {option:"Code Maintenance",isActive:false, path:'/unavailable'}];
 
 
   ngOnInit(): void {

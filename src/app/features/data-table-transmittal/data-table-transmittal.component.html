@@ -22,7 +22,7 @@
     <!-- transmittalTotal Column-->
     <ng-container matColumnDef="transmittalTotal">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Transmittal Total</th>
-      <td mat-cell *matCellDef="let row">{{row.transmittalTotal}}</td>
+      <td mat-cell *matCellDef="let row">{{formatAmount(row.transmittalTotal)}}</td>
     </ng-container>
 
     <!-- transmittalStatus Column-->

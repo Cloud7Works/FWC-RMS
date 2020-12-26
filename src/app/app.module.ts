@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +27,8 @@ import { AppTooltipModule } from './features/app-tooltip/app-tooltip.module';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NotFoundComponent } from './features/not-found/not-found.component';
+import { AppConfiguration } from './services/app.configuration';
+import { ConfigurationService } from './services/configuration.service';
 
 
 @NgModule({
@@ -59,6 +61,14 @@ import { NotFoundComponent } from './features/not-found/not-found.component';
     
   ],
   providers: [    
+    ConfigurationService,
+    AppConfiguration,
+    {
+      provide:APP_INITIALIZER,
+      useFactory:(config:AppConfiguration)=>()=>config.initialiaze(),
+      deps:[AppConfiguration],
+      multi:true
+    }
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]

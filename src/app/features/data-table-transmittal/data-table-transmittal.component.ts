@@ -8,6 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { DataTableTransmittalDataSource } from './data-table-transmittal-datasource';
 import { Source } from '../../models/api.notification.model';
+import { numberWithCommas } from '../../helper/helper-methods';
 
 @Component({
   selector: 'data-table-transmittal',
@@ -49,5 +50,9 @@ constructor(private service : FWCService){
 
   edit(transmittal:TransmittalResponse){
     this.onEditting.emit({edit:true,transmittal:transmittal});
+  }
+
+  formatAmount(amount : number){
+    return numberWithCommas(amount);
   }
 }

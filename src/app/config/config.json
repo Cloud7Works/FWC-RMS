@@ -1,3 +1,20 @@
 {
-    "host":"https://fwcrmswebapi20201221162301.azurewebsites.net/v1"
+    "host":"https://fwcrmswebapi20201221162301.azurewebsites.net/v1",
+    "endPoints":{
+        "departmentDocumentSearch":{
+            "POST":"/departmentDocumentSearch",
+            "GET":"/departmentDocumentSearch?keyword=REPLACE_VALUE"
+        },
+        "transmittals":{
+            "POST":"/transmittals",
+            "GET":"/transmittals/?transmittalStatus=REPLACE_VALUE",
+            "PATCH":"/transmittals/REPLACE_VALUE"
+        },
+        "departmentDocumentRecord":{            
+            "POST":"/transmittals/REPLACE_VALUE/departmentDocuments",
+            "GET":"/transmittals/REPLACE_VALUE/departmentDocuments",
+            "PATCH":"/transmittals/TRANSMITTAL_VALUE/departmentDocuments/DEPT_DOC_VALUE",
+            "DELETE":"/transmittals/TRANSMITTAL_VALUE/departmentDocuments/DEPT_DOC_VALUE"            
+        }
+    }
 }

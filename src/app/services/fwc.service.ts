@@ -1,9 +1,11 @@
+
 import { Progress, Source, Status } from './../models/api.notification.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Subject } from 'rxjs';
 import { APINotificationResult } from '../models/api.notification.model';
 import { FWCDataBackend } from '../models/fwc.api.backend.model';
+import { ConfigurationService } from './configuration.service';
 const status = new Status(false,false,"",Progress.Idle);
 @Injectable({providedIn:'root'})
 export class FWCService{    
@@ -54,12 +56,12 @@ export class FWCService{
         }
     ];
 
-    constructor(http : HttpClient){
-        this.backend = new FWCDataBackend(http,this.notifier);    
+    constructor(http : HttpClient,config : ConfigurationService){
+        this.backend = new FWCDataBackend(http,this.notifier,config);    
         this.updateStore();            
     }    
 
-    updateStore(){        
+    updateStore(){               
         this.notifier.subscribe(g=>{
             var index = this.dataStore.findIndex(f=>f.source==g.source);
             this.dataStore[index].status = g.status;  
