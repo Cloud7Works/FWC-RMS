@@ -31,7 +31,7 @@ constructor(private service : FWCService,private detector : ChangeDetectorRef){
                       'transmittalStatus'];
  
   ngAfterViewInit() {
-    this.service.notifier.pipe(tap((f)=>{
+    this.service.notification.notify.pipe(tap((f)=>{
       if(f.source==Source.TransmittalSearch){
         var data = this.service.retrieve(Source.TransmittalSearch).data;
         this.setSource(data);

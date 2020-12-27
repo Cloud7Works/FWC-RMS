@@ -29,6 +29,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NotFoundComponent } from './features/not-found/not-found.component';
 import { AppConfiguration } from './services/app.configuration';
 import { ConfigurationService } from './services/configuration.service';
+import { NotificationService } from './services/notification.service';
+import { FWCDataBackend } from './models/fwc.api.backend.model';
 
 
 @NgModule({
@@ -61,6 +63,8 @@ import { ConfigurationService } from './services/configuration.service';
     
   ],
   providers: [    
+    NotificationService,
+    FWCDataBackend,
     ConfigurationService,
     AppConfiguration,
     {
