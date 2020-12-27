@@ -23,19 +23,19 @@
                     </button>                    
                 </span> 
                 <ng-template #tipContent>
-                    search by 
-                    <span class="emphasize-key">firstname</span> or 
-                    <span class="emphasize-key">lastname</span> or 
-                    <span class="emphasize-key">company name</span> or 
-                    <span class="emphasize-key">transmittal number</span> or 
-                    <span class="emphasize-key">department document number</span> or 
-                    <span class="emphasize-key">check number</span>
+                    Search by                    
+                    <span class="emphasize-key">Transmittal number</span> or 
+                    <span class="emphasize-key">Department document number</span> or 
+                    <span class="emphasize-key">Check number</span> or
+                    <span class="emphasize-key">Firstname</span> or 
+                    <span class="emphasize-key">Lastname</span> or 
+                    <span class="emphasize-key">Company name</span>
                 </ng-template>
                     <input type="text" class="form-control input-search" 
-                    placeholder="enter search text"     
+                    placeholder="Search Transmittals"     
                     [ngbTooltip]="tipContent"     
                     placement="top"
-                    tooltipClass="search-tooltip"                                                     
+                    tooltipClass="search-tooltip"                                                                      
                     #keyword 
                     [disabled]="!advanceSearchIndicator" (keydown.enter)="search(keyword.value)">   
                     <!-- triggers="click" [autoClose]="'inside'"                                  -->
@@ -46,7 +46,7 @@
         <div class="form-group btn-search-group"  *ngIf="advanceSearchIndicator">     
             <div class="col-lg-12">
                 <button type="button" class="btn btn-primary" (click)="search(keyword.value)">Search</button> 
-                <button type="button" class="btn btn-link btn-clear">Clear</button>  
+                <button type="button" class="btn btn-link btn-clear" (click)="clear()">Clear</button>  
             </div>                      
         </div>
   

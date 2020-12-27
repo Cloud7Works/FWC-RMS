@@ -26,9 +26,12 @@
          *ngFor="let i of transmittalList; let idx=index">
         <div class="d-flex w-100 justify-content-between">
             <p class="section-title"></p>
-            <div class="transmittal-edt-del" *ngIf="transmittalStep==steps.Submit">
-                <i class="fa fa-save m-1" (click)="editDepartmentDocumentRecord(action.Save,i)" *ngIf="!i.readOnly"  [ngClass]="{'save-disabled': depDocNumberForm.invalid}" ></i>
-                <i class="fa fa-pencil-alt m-1" (click)="editDepartmentDocumentRecord(action.Read,i)" *ngIf="i.readOnly"></i>                
+            <div class="transmittal-edt-del" *ngIf="transmittalStep==steps.Submit" [ngClass]="{'elem-disabled':deptRec==undefined?false: deptRec !== i.departmentDocumentNumber}">
+                <i class="fa fa-save m-1" (click)="editDepartmentDocumentRecord(action.Save,i)" 
+                                          *ngIf="!i.readOnly"  
+                                          [ngClass]="{'elem-disabled': depDocNumberForm.invalid && !depDocNumberForm.pristine}" ></i>
+                <i class="fa fa-pencil-alt m-1" (click)="editDepartmentDocumentRecord(action.Read,i)" *ngIf="i.readOnly" 
+                ></i>                
                 <i class="fa fa-trash-alt m-1" (click)="deleteDepartmentDocumentRecord(idx,i.departmentDocumentNumber)" 
                 [ngStyle]="{'color': i.readOnly? '':'grey', 'pointer-events':i.readOnly? 'auto':'none'}"></i>                           
             </div>
@@ -38,8 +41,12 @@
             <div class="row d-flex">        
                 <div class="col">
                     <div class="form-row">
-                        <div class="pr-3"><p class="transmittal-text-value"> Department Document Number(DDN): {{i.departmentDocumentNumber}}</p></div>                
-                        <div> <p class="transmittal-text-value">Date Timestamp: {{i.dateTimeStamp}}</p></div>
+                        <div class="pr-3">
+                            <p class="transmittal-text-value"> Department Document Number(DDN): {{i.departmentDocumentNumber}}</p>
+                        </div>                
+                        <div> 
+                            <p class="transmittal-text-value">Date Timestamp: {{i.dateTimeStamp}}</p>
+                        </div>
                     </div>                
                 </div>                                            
                    
@@ -118,7 +125,7 @@
 <div class="card d-flex card-summary pb-3 pt-3">
     <div class="d-flex flex-row" *ngIf="transmittalStep==steps.Submit">
         <div class="col-lg-3" *ngIf="formAction==action.Read">
-            <span class="plus-icon"  [ngClass]="{'save-disabled': depDocNumberForm.invalid}">
+            <span class="plus-icon"  [ngClass]="{'elem-disabled': depDocNumberForm.invalid}">
                 <i class="fa fa-plus-circle"></i>
             </span>
             <button class="btn btn-add-transmittal" form="transmittal-entry"  [disabled]="depDocNumberForm.invalid">Save/Add New</button>

@@ -40,7 +40,7 @@ constructor(private service : FWCService,private detector : ChangeDetectorRef){
     })).subscribe();
   }
 
-ngOnInit(): void {  
+ngOnInit(): void { 
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
   //Add 'implements OnInit' to the class.
     setTimeout(() => {

@@ -2,23 +2,3 @@
 .full-width-table {
   width: 100%;
 }
-table{
-  // tr:nth-child(even) {background: #286DA8 5%}
-  th.mat-header-cell{
-    font-size: 14px;
-    font-weight: 600;
-  }
-  td .edit-icon{
-    color: $themeColor;
-    cursor: pointer;
-  }
-  tr.mat-row:nth-child(odd) {background: #f4faff} 
-  td.mat-column-transmittalStatus{
-    i{
-      position: relative;
-      left: 25%;
-    }
-   
-  }
-
-}

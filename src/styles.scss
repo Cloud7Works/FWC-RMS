@@ -3,48 +3,70 @@
 @import './assets/styles/scss/mixins-media';
 
 body{    
-   
-    background-color: #E5E5E5!important;
-    button.btn-primary{
-        background-color: $themeColor!important;
- 
-        border-radius: 4px!important;
+  background-color: 	$appOffWhite!important;        
+  height: 100%; 
+  *:not(i){
+      font-family: Raleway, Sans-Serif;
+      font-style: normal;
+      color: $appDarkBrown!important;
     }
+    
+    button.btn-primary{
+        background-color: #286DA8!important; 
+        border-radius: 4px!important;
+        color: $appWhite!important;
+    }
+
     button.btn-link, a{
-        color: $buttonLinkColor!important;        
-        font-style: normal;
+        color: $buttonLinkColor!important;                
         font-weight: bold;
         font-size: 14px;
         line-height: 161.1%;
     }
-    label{
-        color: $labelColor!important;        
+
+    label{        
         font-style: normal;
         font-weight: 500;
         font-size: 14px;
         line-height: 161.1%
     }
-    p{
-        color: $labelColor!important;
+
+    .mat-calendar-body-selected{
+      background-color: $appBlue;
+      color: $appWhite!important;
     }
-    
-    height: 100%; 
+
+    .toast .toast-body {
+      color: $appWhite!important;
+    }
+  
+    .toast-container{
+        position: absolute;
+        right: 0;
+        z-index: 1;
+        top: 0;    
+        .bg-success{
+            background-color: $themeColor!important;
+        }
+    }
+
    
     .main{   
-        
+        background-color: 	$appOffWhite!important;
          .search-tooltip .tooltip-inner {
-            background-color: $themeColor;    
+            background-color: #F7EBA7;    
             max-width: 100%;                  
-            font-family: monospace;
-            .emphasize-key{                
-                font-weight: bold;
-                text-decoration: underline;
-                font-style:  italic;                
-            }
+            font-family: Raleway, Sans-Serif;
+            color:#404040;
+            // .emphasize-key{                
+            //     font-weight: bold;
+            //     text-decoration: underline;
+            //     font-style:  italic;                
+            // }
           }
-          .search-tooltip .arrow::before {
-            border-top-color: $themeColor;
-          }
+        .search-tooltip .arrow::before {
+          border-top-color: #F7EBA7;
+        }
 
         @include sm {
             width: 100%;                                           
@@ -52,20 +74,14 @@ body{
         @include lg {       
             width: 77%;
             float: right;              
-        }
-        background-color: #E5E5E5;
+        }        
         padding-top: 10px;
         padding-left: 20px;
-        padding-bottom: 0;
+        padding-bottom: 30px;
         padding-right: 20px;
 
-       .content-body{      
-        
-            background-color: $bgColor;
-            *:not(i){
-                font-family: Arial;
-                font-style: normal;
-            }
+       .content-body{              
+            background-color: $appOffWhite;         
            .body-title{
                 padding-top: 15px;
                 border-radius: 0;
@@ -91,8 +107,27 @@ body{
     }
     
     .form-control.ng-touched.ng-invalid{
-        border:  2px solid red;
+        border:  2px solid $appRed;
     }    
+
+    table{
+        th.mat-header-cell{
+          font-size: 14px;
+          font-weight: 600;
+          color: $appDarkBrown!important;
+        }
+        td .edit-icon{
+            color: $appBlue!important;
+            cursor: pointer;
+          }
+        tr.mat-row:nth-child(odd) {background: $appBeige} 
+        td.mat-column-transmittalStatus{
+          i{
+            position: relative;
+            left: 25%;
+          }   
+        }
+      }
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

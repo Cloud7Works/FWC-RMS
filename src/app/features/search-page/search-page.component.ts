@@ -8,22 +8,24 @@ import { Source } from 'src/app/models/api.notification.model';
   templateUrl: './search-page.component.html',
   styleUrls: ['./search-page.component.scss']
 })
-export class SearchPageComponent implements OnInit {
-  name='ronald';
+export class SearchPageComponent {  
   advanceSearchIndicator = true;
+  isReset = false;
   constructor(private service : FWCService) {     
   }
 
-  ngOnInit(): void {
-   
+  search(val : string, type : SearchType = SearchType.Simple){       
+    this.isReset=type==SearchType.Default;
+    this.service.backend.departmentDocumentSearch(type, val).subscribe();  
   }
-  search(val : string){       
-    this.service.backend.departmentDocumentSearch(SearchType.Simple, val).subscribe();  
+
+  clear(){    
+    this.search('',SearchType.Default);
   }
 
   get status(){
      var record =this.service.retrieve(Source.TransmittalSearch);
-     return record.status.isCompleted && record.data.length==0 ? ' : No Match Found':'';
+     return record.status.isCompleted && record.data.length==0  && !this.isReset? ' : No Match Found':'';
   }
 
  

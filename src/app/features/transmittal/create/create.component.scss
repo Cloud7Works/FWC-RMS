@@ -4,11 +4,12 @@
     top:8px;
     left: 15px;   
     cursor: pointer;      
-    color:$themeColor;
+    color:$appBlue!important;
 }
-.plus-icon.save-disabled{
+
+.plus-icon.elem-disabled{
     pointer-events:none;
-    color:grey;
+    color:grey!important;
 }
 .btn-add-transmittal{
    margin-left:10px;
@@ -24,25 +25,34 @@
     padding-top: 10px;
 }
 
+.elem-disabled i{       
+    pointer-events:none!important;
+    color:grey!important;
+}
+
 .transmittal-edt-del{
     color: $themeColor ;
     cursor: pointer;
     i.fa-pencil-alt{
         font-size: 20px;
         margin-right: 15px!important;
+        color: $appBlue;
     }
     i.fa-trash-alt{
         font-size: 20px;
         margin-left: 15px!important;
+        color: $appRed;
     }
     i.fa-save{
         font-size: 20px;
-        margin-right: 15px!important;        
+        margin-right: 15px!important;   
+        color: $appBlue;     
     }
-    i.fa-save.save-disabled{
-        pointer-events:none;
-        color:grey;
-    }
+    // i.fa-save.elem-disabled{
+    //     pointer-events:none;
+    //     color:grey;
+    // }  
+    
 }
 .card-summary{
     border-bottom: 0;
@@ -87,25 +97,27 @@
         position: absolute;
         top: 5px;
         font-size: 15px;
-        color: #80808061;
+        color: #80808061!important;
         left: 10px;
     }
+  
 }
 
 .transmittal-entry-header {
-    background-color:$themeColor;
+    background-color:$appTeal;
     padding-top: 10px;
     p{
-        color: white!important;
+        color: $appWhite!important;
         font-size: 14px;
         font-weight: 600;
     }
 }
+
 .transmittal-text-value{
     font-size: 13px!important;
     font-weight: 700!important;
 }
 
 .required-field{
-    color: red!important;
+    color: $appRed!important;
 }

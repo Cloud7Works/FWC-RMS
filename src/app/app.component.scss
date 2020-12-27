@@ -7,14 +7,6 @@ mat-spinner.loading{
     z-index: 1;    
 }
 ::ng-deep .mat-progress-spinner circle, .mat-spinner circle{      
-        stroke: $themeColor!important;    
+        stroke: #286DA8!important;    
 }
-.toast-container{
-    position: absolute;
-    right: 0;
-    z-index: 1;
-    top: 0;
-    .bg-success{
-        background-color: $themeColor!important;
-    }
-}
+

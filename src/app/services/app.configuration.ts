@@ -1,7 +1,5 @@
 import { tap, map } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from "@angular/core";
 import * as configuration from '../config/config.json';
 
 export class AppConfiguration{

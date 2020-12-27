@@ -13,7 +13,10 @@
             <div class="d-flex flex-row">
                 <div class="form-group col-lg-4" *ngIf="!hideSendVerification">         
                     <button class="btn btn-primary btn-send-verification" (click)="proceed(steps.Final)" *ngIf="currentStep==steps.Submit" [disabled]="!hasDeptDocRecord">Send to Verification</button>            
-                    <button type="button" class="btn btn-link btn-clear btn-queue" (click)="proceed(steps.New)">{{currentStep==steps.Submit?'Cancel':'Go back to Queue'}}</button>  
+                    <button type="button" *ngIf="currentStep!==steps.New"
+                            class="btn btn-link btn-clear btn-queue" 
+                            (click)="proceed(steps.New)">{{currentStep==steps.Submit?'Cancel':'Go back to Queue'}}
+                    </button>  
                 </div>      
             </div> 
        </ng-container>       

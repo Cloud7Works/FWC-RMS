@@ -19,7 +19,7 @@ export class FWCService{
     /**
      * @summary API Response data store 
      * [Source.TransmittalSearch - TransmittalSearchResponse] 
-     * [Source.TransmittalList - TransmittalDetailResponse]
+     * [Source.TransmittalList - TransmittalDetailModel]
      * [Source.TransmittalSummary - TransmittalResponse]
      * [Source.TransmittalCreation - TransmittalResponse]
      * [Source.TransmittalUpdate - TransmittalResponse]     

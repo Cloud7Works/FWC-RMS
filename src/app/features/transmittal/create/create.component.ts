@@ -50,37 +50,43 @@ export class Create implements OnInit {
   }
   
   hasValue = (val:string)=>{
-    return val && val!=="";
+    return val && val.trim()!=="";
   }
   disableField:boolean;
   ngOnInit(): void {    
-    this.getFormControl('firstName').valueChanges.pipe(debounceTime(500),distinctUntilChanged()).subscribe(d=>{
-      if(this.hasValue(d) && this.hasValue(this.getFormControl('lastName').value)){
+    this.getFormControl('firstName').valueChanges.pipe(debounceTime(300),distinctUntilChanged()).subscribe(d=>{
+      if(!this.hasValue(d) && !this.hasValue(this.getFormControl('lastName').value)){
         this.getFormControl('companyName').setValidators(null);
         this.getFormControl('firstName').setValidators(null);  
         this.getFormControl('lastName').setValidators(null);   
+        this.getFormControl('firstName').setErrors(null);
+        this.getFormControl('lastName').setErrors(null);
         this.getFormControl('companyName').enable({onlySelf:true});
+        this.depDocNumberForm.updateValueAndValidity();        
       }else if(this.hasValue(d) || this.hasValue(this.getFormControl('lastName').value)){
         this.getFormControl('companyName').disable({onlySelf:true});
         this.getFormControl('firstName').setValidators([Validators.required]);  
         this.getFormControl('lastName').setValidators([Validators.required]);       
-      }else{
+      }else{        
         this.getFormControl('companyName').enable({onlySelf:true});
       }
       this.depDocNumberForm.updateValueAndValidity();
     });
 
-    this.getFormControl('lastName').valueChanges.pipe(debounceTime(500),distinctUntilChanged()).subscribe(d=>{
+    this.getFormControl('lastName').valueChanges.pipe(debounceTime(300),distinctUntilChanged()).subscribe(d=>{
       if(!this.hasValue(d) && !this.hasValue(this.getFormControl('firstName').value)){
         this.getFormControl('companyName').setValidators(null);
         this.getFormControl('firstName').setValidators(null);  
-        this.getFormControl('lastName').setValidators(null);  ;
+        this.getFormControl('lastName').setValidators(null); 
+        this.getFormControl('firstName').setErrors(null);
+        this.getFormControl('lastName').setErrors(null);
         this.getFormControl('companyName').enable({onlySelf:true});
+        this.depDocNumberForm.updateValueAndValidity();        
       }else if(this.hasValue(d) || this.hasValue(this.getFormControl('firstName').value)){
         this.getFormControl('companyName').disable({onlySelf:true});
         this.getFormControl('firstName').setValidators([Validators.required]);  
         this.getFormControl('lastName').setValidators([Validators.required]);  
-      }else{
+      }else{        
         this.getFormControl('companyName').enable({onlySelf:true});
       }
       this.depDocNumberForm.updateValueAndValidity();
@@ -144,11 +150,13 @@ export class Create implements OnInit {
     this.isReadOnly = !this.isReadOnly;    
     var doc = this.transmittalList.find(f=>f.departmentDocumentNumber==record.departmentDocumentNumber);
     doc.readOnly = this.isReadOnly;       
+    console.log(doc);
+    console.log( this.transmittalList);
     this.formAction=type==FormAction.Save?FormAction.Read:FormAction.Save;
     if(type==FormAction.Save){                                      
       var payload : CreateTransmittalDetailRequest = this.depDocNumberForm.value;      
       this.service.backend.updateDeptDocRecord(this.transmittal.transmittalNumber,record.departmentDocumentNumber,payload,doc).subscribe();
-      this.depDocNumberForm.reset();
+      this.depDocNumberForm.reset();      
       this.hideSendVerification.emit(false);
     }  else{
       this.setFormValue(record);
@@ -168,6 +176,11 @@ export class Create implements OnInit {
     this.setControlValue("checkAmount", record.checkAmount);
     this.setControlValue("cashListing", record.cashListing);
     this.setControlValue("comments", record.comments);
+  }
+
+  get deptRec(){
+    var record = this.transmittalList.find(f=>!f.readOnly);
+    return record?.departmentDocumentNumber;
   }
   
   total(){    

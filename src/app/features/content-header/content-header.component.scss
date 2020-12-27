@@ -1,18 +1,19 @@
 @import './../../../assets/styles/scss/variables';
 .header{        
     .header-title{
-        font-family: Arial;
+        font-family: Raleway, Sans-Serif;
         font-size: 28px;
         font-style: normal;
         font-weight: 500;
         line-height: 35px;
-        letter-spacing: 0em;     
+        letter-spacing: 0em;    
+        color: #404040; 
     }
     .header-profile .profile-img{
         i{
             font-size: 26px;
             padding-right: 10px;
-            color: $themeColor;
+            color: 	#286DA8;
         }
     }
 }

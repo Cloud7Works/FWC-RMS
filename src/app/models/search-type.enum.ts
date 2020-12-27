@@ -1,4 +1,5 @@
 export enum SearchType{
     Simple='Search by fname, lname or company name',
-    Advanced='Search with multiple criteria'
+    Advanced='Search with multiple criteria',
+    Default='Empty'
 }

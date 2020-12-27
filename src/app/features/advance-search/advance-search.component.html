@@ -48,11 +48,12 @@
               <!-- 3rd row -->
               <div class="form-row">             
                 <div class="col-lg-4">     
-                    <p>Deposit Date Range</p>
+                    <label for="startdate">Deposit Date Range</label>
                     <div class="form-row">                      
                         <div class="form-group col-lg-6">                                               
                             <input formControlName="depositDateFrom" matInput [matDatepicker]="startdate"                               
                             class="form-control" 
+                            placeholder="from"
                             id="startdate">
                             <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
                             <mat-datepicker #startdate></mat-datepicker>
@@ -61,6 +62,7 @@
                         <div class="form-group col-lg-6">                         
                             <input formControlName="depositDateTo" matInput [matDatepicker]="enddate"                             
                             class="form-control" 
+                            placeholder="to"
                             id="enddate">
                             <mat-datepicker-toggle matSuffix [for]="enddate"></mat-datepicker-toggle>
                             <mat-datepicker #enddate></mat-datepicker>                                                      

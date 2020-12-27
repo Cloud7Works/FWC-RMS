@@ -2,23 +2,19 @@ import { TransmittalDetailModel } from './transmittal-detail.model';
 import { CreateTransmittalMapper, DepartmentDocRecordMapper, RecentTransmittalMapper, UpdateDepartmentDocRecordMapper } from './mapping.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, of, Subject } from 'rxjs';
-import { catchError,delay,map, tap } from 'rxjs/operators';
+import { catchError,map } from 'rxjs/operators';
 import { APINotificationResult, APISignature, Progress, Source, Status } from './api.notification.model';
 import { TransmittalSearchRequest } from './transmittalSearchRequest';
 import { UpdateTransmittalRequest } from './updateTransmittalRequest';
 import { CreateTransmittalDetailRequest } from './createTransmittalDetailRequest';
 import { TransmittalSearchResponse } from './transmittalSearchResponse';
 import { TransmittalResponse } from './transmittalResponse';
-import { TransmittalDetailResponse } from './transmittalDetail';
 import { SearchType } from './search-type.enum';
 import { ConfigurationService } from '../services/configuration.service';
 export class FWCDataBackend implements APISignature{
-    constructor(private http : HttpClient, private notify : Subject<APINotificationResult>,private configData : ConfigurationService){
-        console.log(this.config);
+    constructor(private http : HttpClient, private notify : Subject<APINotificationResult>,private configData : ConfigurationService){        
     }
- 
-
-    // private readonly host = 'https://fwcrmswebapi20201221162301.azurewebsites.net/v1';
+     
     private  config = this.configData.config;
 
     api : Observable<any> = of(null);
@@ -26,7 +22,7 @@ export class FWCDataBackend implements APISignature{
 
     result(source: Source, mapper? : any, notificationMessage? : {type:'CRUD',operation:any}){
         return this.api.pipe(
-        catchError(error=> of(new Status(true,true,{type : 'CRUD', operation:'Something went wrong'},Progress.Completed))),
+        catchError(()=> of(new Status(true,true,{type : 'CRUD', operation:'Something went wrong'},Progress.Completed))),
         map((response : any)=>{ 
             var data: any;           
             data = mapper && !(response instanceof Status)? mapper.map(response) : response;
@@ -52,13 +48,15 @@ export class FWCDataBackend implements APISignature{
                                                            .GET
                                                            .replace('REPLACE_VALUE',payload),this.httpOptions);                      
             // this.api = this.http.get('./../assets/data/transmittal-search.json');
-        }else{
+        }else if(type==SearchType.Advanced){
             this.api = this.http.post(this.config.host+this.config
                                                            .endPoints
                                                            .departmentDocumentSearch
                                                            .POST,payload,this.httpOptions);                  
             // this.api = this.http.get('./../assets/data/transmittal-search.json');
-        }        
+        }else{
+            this.api = of([]);
+        }
                         
         return this.result(Source.TransmittalSearch);
     }
