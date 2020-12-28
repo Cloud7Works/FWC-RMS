@@ -39,7 +39,7 @@ constructor(private service : FWCService){
  }
 
   ngAfterViewInit() {
-    this.service.notifier.pipe(filter(f=>f.source==Source.TransmittalSummary),tap(()=>{
+    this.service.notification.notify.pipe(filter(f=>f.source==Source.TransmittalSummary),tap(()=>{
       var data = this.service.retrieve(Source.TransmittalSummary).data;      
       this._dataSource = new DataTableTransmittalDataSource(data);           
       this.dataSource.sort = this.sort;

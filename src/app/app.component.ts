@@ -33,7 +33,7 @@ export class AppComponent {
   }
   isLoading:boolean=false;
   updateProgress(){
-    this.service.notifier.subscribe(g=>{
+    this.service.notification.notify.subscribe(g=>{
       this.isLoading = g.status.progress==Progress.InProgress      
       if(g.status.isCompleted && g.status.message.type=='CRUD'){
         var msg = g.status.isError ? g.status.message.operation : g.status.message.operation;

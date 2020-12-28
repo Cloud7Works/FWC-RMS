@@ -26,12 +26,14 @@
          *ngFor="let i of transmittalList; let idx=index">
         <div class="d-flex w-100 justify-content-between">
             <p class="section-title"></p>
-            <div class="transmittal-edt-del" *ngIf="transmittalStep==steps.Submit" [ngClass]="{'elem-disabled':deptRec==undefined?false: deptRec !== i.departmentDocumentNumber}">
+            <div class="transmittal-edt-del" *ngIf="transmittalStep==steps.Submit" 
+                                              [ngClass]="{'elem-disabled':
+                                                        deptRec==undefined? false : 
+                                                        deptRec !== i.departmentDocumentNumber  }">
                 <i class="fa fa-save m-1" (click)="editDepartmentDocumentRecord(action.Save,i)" 
                                           *ngIf="!i.readOnly"  
-                                          [ngClass]="{'elem-disabled': depDocNumberForm.invalid && !depDocNumberForm.pristine}" ></i>
-                <i class="fa fa-pencil-alt m-1" (click)="editDepartmentDocumentRecord(action.Read,i)" *ngIf="i.readOnly" 
-                ></i>                
+                                          ></i>
+                <i class="fa fa-pencil-alt m-1" (click)="editDepartmentDocumentRecord(action.Read,i)" *ngIf="i.readOnly"></i>                
                 <i class="fa fa-trash-alt m-1" (click)="deleteDepartmentDocumentRecord(idx,i.departmentDocumentNumber)" 
                 [ngStyle]="{'color': i.readOnly? '':'grey', 'pointer-events':i.readOnly? 'auto':'none'}"></i>                           
             </div>

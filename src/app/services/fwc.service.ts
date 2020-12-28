@@ -6,11 +6,15 @@ import { Subject } from 'rxjs';
 import { APINotificationResult } from '../models/api.notification.model';
 import { FWCDataBackend } from '../models/fwc.api.backend.model';
 import { ConfigurationService } from './configuration.service';
+import { NotificationService } from './notification.service';
 const status = new Status(false,false,"",Progress.Idle);
 @Injectable({providedIn:'root'})
 export class FWCService{    
-    readonly notifier = new Subject<APINotificationResult>();
-    readonly backend : FWCDataBackend;    
+    
+    constructor(public backend : FWCDataBackend,public notification : NotificationService){         
+        this.updateStore();            
+    }    
+        
     send = new Subject<boolean>();
     retrieve(source : Source){
         return this.dataStore.find(f=>f.source==source);
@@ -56,13 +60,8 @@ export class FWCService{
         }
     ];
 
-    constructor(http : HttpClient,config : ConfigurationService){
-        this.backend = new FWCDataBackend(http,this.notifier,config);    
-        this.updateStore();            
-    }    
-
     updateStore(){               
-        this.notifier.subscribe(g=>{
+        this.notification.notify.subscribe(g=>{
             var index = this.dataStore.findIndex(f=>f.source==g.source);
             this.dataStore[index].status = g.status;  
             if(g.status.isCompleted && !g.status.isError){                    
