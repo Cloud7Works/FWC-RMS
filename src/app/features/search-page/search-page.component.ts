@@ -16,7 +16,9 @@ export class SearchPageComponent {
 
   search(val : string, type : SearchType = SearchType.Simple){       
     this.isReset=type==SearchType.Default;
-    this.service.backend.departmentDocumentSearch(type, val).subscribe();  
+    if(this.isReset || val!==""){
+      this.service.backend.departmentDocumentSearch(type, val).subscribe();  
+    }    
   }
 
   clear(){    
@@ -25,7 +27,7 @@ export class SearchPageComponent {
 
   get status(){
      var record =this.service.retrieve(Source.TransmittalSearch);
-     return record.status.isCompleted && record.data.length==0  && !this.isReset? ' : No Match Found':'';
+     return record.status.isCompleted && record.data.length==0  && !this.isReset? 'No Match Found':'';
   }
 
  

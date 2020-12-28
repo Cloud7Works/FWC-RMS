@@ -10,7 +10,11 @@ body{
       font-style: normal;
       color: $appDarkBrown!important;
     }
-    
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
     button.btn-primary{
         background-color: #286DA8!important; 
         border-radius: 4px!important;
@@ -46,7 +50,7 @@ body{
         z-index: 1;
         top: 0;    
         .bg-success{
-            background-color: $themeColor!important;
+            background-color: $appBlue!important;
         }
     }
 
