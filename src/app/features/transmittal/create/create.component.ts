@@ -52,7 +52,7 @@ export class Create implements OnInit {
     return val!==null && val.trim()!=="";
   }
 
-  setDefaultValidators(){
+  resetNameControls(){
     if(!this.hasValue(this.getFormControl('companyName').value)){
       this.getFormControl('companyName').reset();
     }
@@ -64,29 +64,7 @@ export class Create implements OnInit {
     }
     if(!this.hasValue(this.getFormControl('firstName').value) && !this.hasValue(this.getFormControl('lastName').value)){
       this.getFormControl('companyName').enable({onlySelf:true});
-    }
-    // this.getFormControl('firstName').setValidators([Validators.required]);  
-    // this.getFormControl('lastName').setValidators([Validators.required]);
-    // this.getFormControl('companyName').setValidators([Validators.required]);
-     
-    this.depDocNumberForm.updateValueAndValidity();
-  }
-
-  setRequiredValidators(){
-    this.getFormControl('companyName').disable({onlySelf:true});
-    this.getFormControl('firstName').setValidators([Validators.required]);  
-    this.getFormControl('lastName').setValidators([Validators.required]);
-    this.getFormControl('companyName').setValidators([Validators.required]);
-    if(!this.hasValue(this.getFormControl('lastName').value)){
-      this.getFormControl('lastName').setErrors(Validators.required);
-      this.getFormControl('lastName').markAsTouched();
-    }
-
-    if(!this.hasValue(this.getFormControl('firstName').value)){
-      this.getFormControl('firstName').setErrors(Validators.required);
-      this.getFormControl('firstName').markAsTouched();
-    }
-
+    }     
     this.depDocNumberForm.updateValueAndValidity();
   }
 
@@ -94,18 +72,20 @@ export class Create implements OnInit {
   ngOnInit(): void {    
     this.getFormControl('firstName').valueChanges.pipe(debounceTime(300),distinctUntilChanged()).subscribe(d=>{
       if(!this.hasValue(d) && !this.hasValue(this.getFormControl('lastName').value)){
-        this.setDefaultValidators();           
-      }else {
-        this.setRequiredValidators();   
+        this.resetNameControls();           
+      }else {        
+        this.getFormControl('lastName').markAsTouched();
+        this.getFormControl('companyName').disable({onlySelf:true});
       }
       this.depDocNumberForm.updateValueAndValidity();
     });
 
     this.getFormControl('lastName').valueChanges.pipe(debounceTime(300),distinctUntilChanged()).subscribe(d=>{
       if(!this.hasValue(d) && !this.hasValue(this.getFormControl('firstName').value)){
-        this.setDefaultValidators();          
-      }else {        
-        this.setRequiredValidators();    
+        this.resetNameControls();          
+      }else {                
+        this.getFormControl('firstName').markAsTouched();
+        this.getFormControl('companyName').disable({onlySelf:true});
       }
       this.depDocNumberForm.updateValueAndValidity();
     });
@@ -116,9 +96,9 @@ export class Create implements OnInit {
         this.getFormControl('lastName').disable({onlySelf:true});
       }else{
         this.getFormControl('firstName').enable({onlySelf:true});
-        this.getFormControl('lastName').enable({onlySelf:true});
-        this.setDefaultValidators();
+        this.getFormControl('lastName').enable({onlySelf:true});     
       }
+      this.resetNameControls();
     });
 
   }
