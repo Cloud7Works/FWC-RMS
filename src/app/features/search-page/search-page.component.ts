@@ -13,7 +13,7 @@ export class SearchPageComponent {
   isReset = false;
   constructor(private service : FWCService) {     
   }
-
+  keywordValue : string;
   search(val : string, type : SearchType = SearchType.Simple){       
     this.isReset=type==SearchType.Default;
     if(this.isReset || val!==""){
@@ -23,6 +23,11 @@ export class SearchPageComponent {
 
   clear(){    
     this.search('',SearchType.Default);
+    this.keywordValue='';
+  }
+
+  onAdvancedSearchReset(val : boolean){
+    this.isReset=val;
   }
 
   get status(){

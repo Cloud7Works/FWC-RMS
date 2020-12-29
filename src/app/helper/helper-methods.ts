@@ -1,5 +1,9 @@
+const hasNoValue=(val:string)=>{
+  return val=='' || val==null;
+}
+
 export function formatDateRange(startDate : any, endDate: any) {
-    if(startDate=='' || endDate=='') return {start :'', end:''};
+    if(hasNoValue(startDate) || hasNoValue(endDate)) return {start :'', end:''};
     return {start :formatDate(startDate), end:formatDate(endDate)};
   }
 

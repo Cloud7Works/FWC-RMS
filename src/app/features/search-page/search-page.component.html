@@ -11,14 +11,14 @@
                 </span>    
                 <span class="close-search" aria-hidden="true" >
                     <i class="fa fa-times"
-                    (click)="advanceSearchIndicator = !advanceSearchIndicator" *ngIf="!advanceSearchIndicator"></i>      
+                    (click)="advanceSearchIndicator = !advanceSearchIndicator; keywordValue=''" *ngIf="!advanceSearchIndicator"></i>      
                 </span>       
                 <span>                
                     <button 
                             *ngIf="advanceSearchIndicator"
                             type="button" 
                             id="btn-adv-search"                            
-                            (click)="advanceSearchIndicator = !advanceSearchIndicator"
+                            (click)="advanceSearchIndicator = !advanceSearchIndicator; keywordValue=''"
                             class="btn btn-link btnlink-advance-search">Advanced Search 
                     </button>                    
                 </span> 
@@ -37,6 +37,7 @@
                     placement="top"
                     tooltipClass="search-tooltip"                                                                      
                     #keyword 
+                    [(ngModel)]="keywordValue"
                     [disabled]="!advanceSearchIndicator" (keydown.enter)="search(keyword.value)">   
                     <!-- triggers="click" [autoClose]="'inside'"                                  -->
             </div>
@@ -52,7 +53,7 @@
   
       
         <div class="col-lg-12 search-result body-title">                            
-                <advance-search id="adv-search" class="col-lg-12" *ngIf="!advanceSearchIndicator"></advance-search>
+                <advance-search id="adv-search" class="col-lg-12" *ngIf="!advanceSearchIndicator" (onReset)="onAdvancedSearchReset($event)"></advance-search>
                 <p class="">{{status}}</p>
                
                 <data-table-search ></data-table-search>                              
