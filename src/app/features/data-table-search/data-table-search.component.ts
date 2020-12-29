@@ -23,12 +23,13 @@ constructor(private service : FWCService,private detector : ChangeDetectorRef){
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = [ 'lastName',
                       'firstName',
+                      'companyName',
                       'departmentDocumentNumber',
                       'checkAmount',
                       'checkNumber',                      
                       'transmittalNumber',
                       'cashListing',
-                      'transmittalStatus'];
+                      'action'];
  
   ngAfterViewInit() {
     this.service.notification.notify.pipe(tap((f)=>{
