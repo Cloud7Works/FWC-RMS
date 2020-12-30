@@ -31,7 +31,7 @@ export class AdvanceSearchComponent implements OnInit {
   }
 
   searchForm = new FormGroup({
-      "firstName":new FormControl("",Validators.required),
+      "firstName":new FormControl(""),
       "lastName": new FormControl(""),
       "companyName": new FormControl(""),
       "departmentDocumentNumber": new FormControl(""),
@@ -60,11 +60,8 @@ export class AdvanceSearchComponent implements OnInit {
       payload.depositDateFrom = dateRange.start;
       payload.depositDateTo= dateRange.end;    
     }
-    var result = Object.entries(this.searchForm.value).map((key,value)=>key[1]);
-    var distinctResult = [...new Set(result)];
-    if(type==SearchType.Default || (distinctResult.length!==1 && distinctResult[0]!==null)){
-      this.service.backend.departmentDocumentSearch(type, payload).subscribe();
-    }   
+  
+    this.service.backend.departmentDocumentSearch(type, payload).subscribe();
   }
 
   clear(){            
